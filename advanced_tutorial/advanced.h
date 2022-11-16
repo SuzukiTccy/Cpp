@@ -1,0 +1,10 @@
+void openFileTest();
+void exceptionTest();
+void dynamicTest();
+void namespaceTest();
+void templateTest();
+void preprocessorTest();
+void signalHandleTest();
+void pthreadTest1();
+void pthreadTest2();
+void threadTest();
