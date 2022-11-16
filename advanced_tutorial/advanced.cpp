@@ -49,7 +49,7 @@ int main(){
     // pthreadTest1();
 
     cout << "<=====pthreadTest2()======>" << endl;
-    // pthreadTest2();
+    pthreadTest2();
 
     cout << "<=====threadTest2()======>" << endl;
     threadTest();
