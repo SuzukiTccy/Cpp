@@ -220,6 +220,8 @@ class OverLD{
             this->len = new int;
             *(this->len) = len;
 
+            cout << "call the constructor" << endl;
+
         }
         virtual ~OverLD(){
             delete len;
@@ -230,7 +232,14 @@ class OverLD{
             old = o.old;
             len = new int;
             *len = *(o.len);
+            cout << "call the copy constructor" << endl;
         }
+
+        OverLD(OverLD && o): old(o.old), len(o.len){ // move constructor
+            o.len = nullptr;
+            cout << "call the move constructor" << endl;
+        }
+
         OverLD operator+(const OverLD& o){ // overloading operator as the member function
             OverLD overld;
             overld.old = this->old + o.old;
@@ -263,9 +272,10 @@ OverLD operator+(OverLD& o, int num){ // operator overloading can overload
 }
 
 
+
 void overloadingTest(){
-    OverLD o1(1,2);
-    OverLD o2(3,4);
+    OverLD o1 = OverLD(1,2);
+    OverLD o2 = OverLD(3,4);
 
     OverLD o3 = o1 + o2;
     OverLD o4 = o1 + 4;
