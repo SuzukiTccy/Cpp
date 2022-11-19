@@ -2,6 +2,7 @@
 #include <thread> // C++11 standard thread library
 #include <pthread.h>
 #include <string>
+#include <unistd.h>
 using namespace std;
 
 #define NUM_THREADS 5
@@ -84,9 +85,9 @@ class thread_obj{
 };
 
 
-void threadTest(){
+void threadTest1(){
     thread th1(foo, 3);
-    thread th2(thread_obj(), 3);
+    thread th2{thread_obj(), 3};
 
     auto f = [](int x){
         for(int i=0; i<x; i++){
@@ -105,6 +106,32 @@ void threadTest(){
 
 
 }
+
+
+
+
+
+void sell_ticket(int thread_id){
+    static int ticket_total = 100;
+    while(thread_id > 0){
+        --ticket_total;
+        cout << "Wicket " << thread_id << " sell a ticket, " 
+        << "there are " << ticket_total << " tickets left " << endl;
+    } 
+}
+
+
+void threadTest2(){
+    int wicket_num = thread::hardware_concurrency();
+    int i;
+
+    for(i = 0; i < wicket_num; ++i){
+        thread t(sell_ticket, i);
+        t.detach();
+    }
+
+}
+
 
 
 

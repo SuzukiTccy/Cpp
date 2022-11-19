@@ -7,4 +7,5 @@ void preprocessorTest();
 void signalHandleTest();
 void pthreadTest1();
 void pthreadTest2();
-void threadTest();
+void threadTest1();
+void threadTest2();

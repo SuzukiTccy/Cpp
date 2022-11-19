@@ -1,7 +1,7 @@
 .DEFAULT_GOAL :=run
 
 
-CFLAG = -std=c++17 -lpthread
+CFLAG = -std=c++17
 EXCUTABLE_FILE = ./bin/advanced
 DEPS=advanced.h
 
