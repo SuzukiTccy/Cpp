@@ -108,26 +108,37 @@ void threadTest1(){
 }
 
 
+#include <chrono>
+#include <mutex>
+#include <vector>
+std::mutex mtx;
 
-
-
+static int ticket_total = 100;
 void sell_ticket(int thread_id){
-    static int ticket_total = 100;
-    while(thread_id > 0){
+    while(ticket_total > 0){
+        mtx.lock();
         --ticket_total;
+        
         cout << "Wicket " << thread_id << " sell a ticket, " 
         << "there are " << ticket_total << " tickets left " << endl;
-    } 
+        mtx.unlock();
+
+        this_thread::sleep_for(chrono::milliseconds(50));
+
+    }
 }
+
 
 
 void threadTest2(){
     int wicket_num = thread::hardware_concurrency();
     int i;
-
+    vector<thread> threads;
     for(i = 0; i < wicket_num; ++i){
-        thread t(sell_ticket, i);
-        t.detach();
+        threads.push_back(thread(sell_ticket, i));
+    }
+    for(auto &t : threads){
+        t.join();
     }
 
 }

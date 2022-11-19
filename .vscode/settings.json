@@ -37,7 +37,8 @@
     "array": "cpp",
     "iosfwd": "cpp",
     "stdexcept": "cpp",
-    "thread": "cpp"
+    "thread": "cpp",
+    "__threading_support": "cpp"
   },
   "workbench.panel.defaultLocation": "right",
   "C_Cpp.errorSquiggles": "Disabled"
