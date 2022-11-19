@@ -111,20 +111,26 @@ void threadTest1(){
 #include <chrono>
 #include <mutex>
 #include <vector>
+#include <condition_variable>
 std::mutex mtx;
+std::condition_variable_any cond;
 
 static int ticket_total = 100;
 void sell_ticket(int thread_id){
     while(ticket_total > 0){
         mtx.lock();
         --ticket_total;
-        
+        if(ticket_total < 0){ // avoiding some thread pass the the judgement statement, 
+                              // but when execute '--ticket_total', 
+                              // the public resource 'ticket_total' is < 0,
+                              // because the other thread change it.
+            mtx.unlock();
+            return;
+        }
         cout << "Wicket " << thread_id << " sell a ticket, " 
         << "there are " << ticket_total << " tickets left " << endl;
         mtx.unlock();
-
-        this_thread::sleep_for(chrono::milliseconds(50));
-
+        this_thread::sleep_for(chrono::milliseconds(500));
     }
 }
 
