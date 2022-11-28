@@ -9,3 +9,4 @@ void pthreadTest1();
 void pthreadTest2();
 void threadTest1();
 void threadTest2();
+void vec();

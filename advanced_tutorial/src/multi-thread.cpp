@@ -130,7 +130,7 @@ void sell_ticket(int thread_id){
         cout << "Wicket " << thread_id << " sell a ticket, " 
         << "there are " << ticket_total << " tickets left " << endl;
         mtx.unlock();
-        this_thread::sleep_for(chrono::milliseconds(500));
+        this_thread::sleep_for(chrono::milliseconds(50));
     }
 }
 
