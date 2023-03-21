@@ -92,8 +92,8 @@ int main(){
                      // then the constructor must be called explicitly
 
 
-/*=======================C++运算符, %和&========================*/
-    cout << "<========C++运算符, %和&========>" << endl;
+/*=======================C++ operator, %和&========================*/
+    cout << "<========C++ operator, %和&========>" << endl;
     int a,b,c;
     a=53;
     b=a%8;
@@ -107,20 +107,20 @@ int main(){
 
 
 /*=======================loop========================*/
-    cout << "<========for循环========>" << endl;
-    for(int i = 0; i<=10; i++){
+    cout << "<========for loop========>" << endl;
+    for(int i = 0; i <= 10; i++){
         cout << "i = " << i << endl;
     }
 
-    cout << "<========基于范围的for循环========>" << endl;
+    cout << "<========for loop based on the range========>" << endl;
     int my_array[5] = {1,3,5,7,9};
     for(int &i : my_array){
         cout << "i = " << i << endl;
     }
 
-    cout << "<========while循环========>" << endl;
+    cout << "<========while loop========>" << endl;
     int i = 0;
-    while(i<10){
+    while(i < 10){
         cout << "i = " << i << endl;
         i++;
     }
@@ -148,10 +148,10 @@ int main(){
     printcolor("green", "helloworld!");
 
 
-/*=======================lambda表达式========================*/
+/*=======================lambda expression========================*/
 
-    cout << "<========lambda表达式========>" << endl;
-    // 定义简单的lambda表达式
+    cout << "<========lambda expression========>" << endl;
+    // 定义简单的lambda expression
     auto basicLambda = [] { cout << "Hello, world!" << endl; };
     basicLambda();   // 输出：Hello, world!
 
