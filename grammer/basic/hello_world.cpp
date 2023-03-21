@@ -4,7 +4,7 @@ using namespace std;
 
 extern int e;
 
-/*=======================枚举类型的演示========================*/
+/*=======================enumeration========================*/
 enum COLOR{
     red,
     green=5,
@@ -27,7 +27,7 @@ struct BOOKS{
 COLOR b=green;
 COLOR c;
 void enumeration(){
-    cout << "========枚举类型的演示========" << endl;
+    cout << "========enumeration type========" << endl;
     cout << "a:" << a << endl; // 0
     c = blue;
     cout << "b:" << b << endl; // 5
@@ -38,9 +38,9 @@ void enumeration(){
 
 /*=======================#define, typedef, using========================*/
 #define CR COLOR
-#undef CR //取消宏定义
+#undef CR // Undefine the macro
 typedef COLOR color;
-using color = COLOR; //firstly
+using color = COLOR; // firstly
 
 
 
@@ -57,32 +57,32 @@ static void ff(); //声明了一个只能在当前文件访问的函数（内部
 
 
 int main(){
-/*=======================枚举类型的演示========================*/
+/*=======================enumeration demonstration========================*/
     enumeration();
 
 
-/*=======================条件编译的演示========================*/
+/*=======================Conditional compilation demonstration========================*/
     #if 0
-        cout << "测试时可用" << endl;
+        cout << "Test version" << endl;
     #else
-        cout << "<========条件编译的演示========>" << endl;
-        cout << "发行版本可用" << endl;
+        cout << "<========Conditional compilation demonstration========>" << endl;
+        cout << "Release version" << endl;
     #endif
 
 
-/*=======================static变量的演示========================*/
-    cout << "<========static变量的演示========>" << endl;
+/*=======================static variable demonstration========================*/
+    cout << "<========static variable demonstration========>" << endl;
     for(int i = 1; i <= 5; i++){
         cout << "scount:" << fun() <<endl;
     }
 
 
-/*=======================explicit的演示========================*/
+/*=======================explicit constructor demonstration========================*/
     class Test{
     public:
         explicit Test(int n){
             num=n;
-        } //explicit(显式)构造函数, 
+        } //explicit constructor, 
     private:
         int num;
     };
@@ -151,17 +151,17 @@ int main(){
 /*=======================lambda expression========================*/
 
     cout << "<========lambda expression========>" << endl;
-    // 定义简单的lambda expression
+    // define an simple lambda expression
     auto basicLambda = [] { cout << "Hello, world!" << endl; };
-    basicLambda();   // 输出：Hello, world!
+    basicLambda();   // output：Hello, world!
 
-    // 指明返回类型
+    // indicates the return type
     auto add = [](int a, int b) -> int { return a + b; };
-    // 自动推断返回类型
+    // automatic infer the return type
     auto multiply = [](int a, int b) { return a * b; };
 
-    int sum = add(2, 5);   // 输出：7
-    int product = multiply(2, 5);  // 输出：10
+    int sum = add(2, 5);   // output：7
+    int product = multiply(2, 5);  // output：10
     cout << "sum = " << sum << endl;
     cout << "product = " << product << endl;
 
