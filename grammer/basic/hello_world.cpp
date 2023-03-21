@@ -28,10 +28,10 @@ COLOR b=green;
 COLOR c;
 void enumeration(){
     cout << "========枚举类型的演示========" << endl;
-    cout << "a:" << a << endl;
+    cout << "a:" << a << endl; // 0
     c = blue;
-    cout << "b:" << b << endl;
-    cout << "c:" << c << endl;
+    cout << "b:" << b << endl; // 5
+    cout << "c:" << c << endl; // 6
 };
 
 
@@ -48,8 +48,8 @@ using color = COLOR; //firstly
 int count = 1;
 int fun()
 {
-    static int count = 10; // 在第一次进入这个函数的时候，变量 count 被初始化为 10！并接着自减 1，以后每次进入该函数，count 的值是上一次函数运行之后的值
-    return count--;        // 就不会被再次初始化了，仅进行自减 1 的操作；在 static 发明前，要达到同样的功能，则只能使用全局变量
+    static int scount = 10; // 在第一次进入这个函数的时候，变量 scount 被初始化为 10！并接着自减 1，以后每次进入该函数，count 的值是上一次函数运行之后的值
+    return scount--;        // 就不会被再次初始化了，仅进行自减 1 的操作；在 static 发明前，要达到同样的功能，则只能使用全局变量
 };
 
 static int ccount; //声明了一个只能在当前文件访问的全局变量
@@ -72,8 +72,8 @@ int main(){
 
 /*=======================static变量的演示========================*/
     cout << "<========static变量的演示========>" << endl;
-    for(; count <= 8; count++){
-        cout << "count:" << fun() <<endl;
+    for(int i = 1; i <= 5; i++){
+        cout << "scount:" << fun() <<endl;
     }
 
 
@@ -82,7 +82,7 @@ int main(){
     public:
         explicit Test(int n){
             num=n;
-        }//explicit(显式)构造函数
+        } //explicit(显式)构造函数
     private:
         int num;
     };
@@ -217,9 +217,9 @@ int main(){
     void array_f3(int array[]); // the size is unknown
 
     // return array
-    int *getrandom(); //static int r[]
+    int *getrandom(nullptr); //static int r[]
     int *p = new int();
-    p = getrandom();
+    p = getrandom;
     for(int i = 0; i<10; i++){
         cout << "*(p+" << i << ") = " << *(p+i) << endl;
     }
@@ -404,8 +404,8 @@ int main(){
     cout << "_fp(5) = " << _fp(5) << endl;
 
 
-    char * test();
-    const char *rrr = test();
+    char * test(nullptr);
+    const char *rrr = test;
     cout << "rrr = " << rrr << endl;
 
 
@@ -769,7 +769,7 @@ int *getrandom(){
     }
 
     return r;
-}
+};
 
 int *returnarr(int a, int b, int SIZE){
     int *r = new int[SIZE];
@@ -779,6 +779,6 @@ int *returnarr(int a, int b, int SIZE){
     }
 
     return r;
-    delete r;
+    delete[] r;
     r = NULL;
-}
+};
