@@ -82,12 +82,14 @@ int main(){
     public:
         explicit Test(int n){
             num=n;
-        } //explicit(显式)构造函数
+        } //explicit(显式)构造函数, 
     private:
         int num;
     };
 
     Test t1(12);
+    // Test t2 = 12; // Error, because declare the explicit constructor, 
+                     // then the constructor must be called explicitly
 
 
 /*=======================C++运算符, %和&========================*/
@@ -98,10 +100,10 @@ int main(){
     c=a&7;
     cout << "b=" << b << endl;
     cout << "c=" << c << endl;
-    cout << "b和c的结果是一样的" <<endl;
-    cout << "%2等价于&1, %4等价于&3, %32等价于&31, 以此类推" << endl;
-    cout << "会有两到三倍的效率提升" << endl;
-    cout << "12^12 = " << (12 ^ 12) << endl; //^可以用来比较整数大小
+    cout << "b is equal with c" <<endl;
+    cout << "%2 is equal with &1, %4 is equal with &3, %32 is equal with &31, and so on" << endl;
+    cout << "There is a two- to three-fold efficiency gain" << endl;
+    cout << "12^12 = " << (12 ^ 12) << endl; // ^can be used to compare two number
 
 
 /*=======================loop========================*/
