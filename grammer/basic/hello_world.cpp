@@ -165,7 +165,7 @@ int main(){
     cout << "sum = " << sum << endl;
     cout << "product = " << product << endl;
 
-    // lambda捕捉，其可以捕捉lambda_exp()内定义的x，称之为闭包实例(可以用其他函数内定义的变量的函数)
+    // lambda capture，it can capture the x which is defined in lambda_exp()，which call it Closure instance (A function that can use variables defined within other functions)
     void lambda_exp(), lambda_exp2(), lambda_exp3(), lambda_exp4();
     lambda_exp();
     lambda_exp2();
@@ -173,15 +173,15 @@ int main(){
     lambda_exp4();
 
 
-/*=======================rand伪随机数和random真随机数========================*/
-    cout << "<========rand随机数========>" << endl;
+/*=======================random numbers========================*/
+    cout << "<========random numbers========>" << endl;
     int get_rand(int a, int b), get_random(int a, int b);
-    cout << get_rand(0, 100) << endl;
-    cout << get_random(0, 100) << endl;
+    cout << get_rand(0, 100) << endl; // pesudo-random number
+    cout << get_random(0, 100) << endl; // true-random number
 
 
-/*=======================数组========================*/
-    cout << "<========数组========>" << endl;
+/*=======================array========================*/
+    cout << "<========array========>" << endl;
     // 1-dimension array definition
     int array[10] = {1,2,3,4,5,6};
     auto print_array = [array]{
@@ -208,10 +208,10 @@ int main(){
 
     // type_char array address
     char name[] = {"Zara Ali"};
-    cout << name << endl; // 输出字符串 Zara Ali
-    cout << &name << endl; // 输出字符串首地址
-    cout << (void *)&name[1] << endl;//由于&name[1]的类型是char*,直接输出会是字符串，
-                                     //所以需要强转成其他类型才能输出地址
+    cout << name << endl; // output: Zara Ali
+    cout << &name << endl; // output: the first address of string
+    cout << (void *)&name[1] << endl; //由于&name[1]的类型是char*,直接输出会是字符串，
+                                      //所以需要强转成其他类型才能输出地址
 
     // Pass the array to the function, array as the argument of function
     void array_f1(int *array);
