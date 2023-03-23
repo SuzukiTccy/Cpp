@@ -654,19 +654,18 @@ int getp(int *p){
 void lambda_exp()
 {
     int x = 10;
-    auto add_x = [x](int a) mutable { x += 1; return a + x; };  // 复制捕捉x
-    auto multiply_x = [&x](int a) mutable { x += 5; return a * x; };  // 引用捕捉x
+    auto add_x = [x](int a) mutable { x += 1; return a + x; };  // copy capture x
+    auto multiply_x = [&x](int a) mutable { x += 5; return a * x; };  // reference capture x
     
-    cout << "add_x(10) = " << add_x(10) << endl; 
-    cout << "multiply_x(10) = " << multiply_x(10) << endl;
-    cout << "x = " << x << endl;
-    // 输出：20 100
+    cout << "add_x(10) = " << add_x(10) << endl;  // 20
+    cout << "multiply_x(10) = " << multiply_x(10) << endl; // 150
+    cout << "x = " << x << endl; // 15
 };
 
 
 void lambda_exp2()
 {
-    // 函数功能，输出vector中能整除2的个数
+    // output the count of element that can be divided by 2 in vector
     vector<int> v = {1,2,3,4,5,6,7,8,9,10};
     int even_count1 = 0;
     for_each(v.begin(), v.end(), [&even_count1](int a) {
