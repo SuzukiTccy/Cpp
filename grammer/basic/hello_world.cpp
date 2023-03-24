@@ -218,10 +218,10 @@ int main(){
     void array_f2(int array[10]); // the size is known
     void array_f3(int array[]); // the size is unknown
 
-    // return array
-    int *getrandom(nullptr); //static int r[]
+    int *getrandom(); //static int r[]
     int *p = new int();
-    p = getrandom;
+    p = getrandom();
+
     for(int i = 0; i<10; i++){
         cout << "*(p+" << i << ") = " << *(p+i) << endl;
     }
@@ -233,11 +233,11 @@ int main(){
     }
 
     delete p;
-    p = NULL;
+    p = nullptr;
 
+/*=======================string========================*/
     #include <string>  
-/*=======================字符串========================*/
-    cout << "<=========字符串=========>" << endl;
+    cout << "<=========string=========>" << endl;
     // end by the '\0'
     char r[5] = {'a', 'b', 'c', 'd', '\0'};
     char rr[] = "abcd";
