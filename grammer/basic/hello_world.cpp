@@ -55,8 +55,8 @@ int fun()
 static int ccount; //声明了一个只能在当前文件访问的全局变量
 static void ff(); //声明了一个只能在当前文件访问的函数（内部函数）
 
-
 int main(){
+    void printsubtitle(string subtitle);
 /*=======================enumeration demonstration========================*/
     enumeration();
 
@@ -65,13 +65,13 @@ int main(){
     #if 0
         cout << "Test version" << endl;
     #else
-        cout << "<========Conditional compilation demonstration========>" << endl;
+        cout << "<=======================Conditional compilation demonstration=======================>" << endl;
         cout << "Release version" << endl;
     #endif
 
 
 /*=======================static variable demonstration========================*/
-    cout << "<========static variable demonstration========>" << endl;
+    cout << "<=======================static variable demonstration=======================>" << endl;
     for(int i = 1; i <= 5; i++){
         cout << "scount:" << fun() <<endl;
     }
@@ -93,7 +93,7 @@ int main(){
 
 
 /*=======================C++ operator, %和&========================*/
-    cout << "<========C++ operator, %和&========>" << endl;
+    cout << "<=======================C++ operator, %和&=======================>" << endl;
     int a,b,c;
     a=53;
     b=a%8;
@@ -107,7 +107,7 @@ int main(){
 
 
 /*=======================loop========================*/
-    cout << "<========for loop========>" << endl;
+    cout << "<=======================for loop=======================>" << endl;
     for(int i = 0; i <= 10; i++){
         cout << "i = " << i << endl;
     }
@@ -127,7 +127,7 @@ int main(){
 
 
 /*=======================switch========================*/
-    cout << "<========switch========>" << endl;
+    cout << "<=======================switch=======================>" << endl;
     color cl=red;
     switch(c){
         case 0:
@@ -150,7 +150,7 @@ int main(){
 
 /*=======================lambda expression========================*/
 
-    cout << "<========lambda expression========>" << endl;
+    cout << "<=======================lambda expression=======================>" << endl;
     // define an simple lambda expression
     auto basicLambda = [] { cout << "Hello, world!" << endl; };
     basicLambda();   // output：Hello, world!
@@ -174,14 +174,14 @@ int main(){
 
 
 /*=======================random numbers========================*/
-    cout << "<========random numbers========>" << endl;
+    cout << "<=======================random numbers=======================>" << endl;
     int get_rand(int a, int b), get_random(int a, int b);
     cout << get_rand(0, 100) << endl; // pesudo-random number
     cout << get_random(0, 100) << endl; // true-random number
 
 
 /*=======================array========================*/
-    cout << "<========array========>" << endl;
+    cout << "<=======================array=======================>" << endl;
     // 1-dimension array definition
     int array[10] = {1,2,3,4,5,6};
     auto print_array = [array]{
@@ -219,8 +219,11 @@ int main(){
     void array_f3(int array[]); // the size is unknown
 
     int *getrandom(); //static int r[]
-    int *p = new int();
-    p = getrandom();
+    // int *p = new int(); // this dynamically allocates an integer-sized block of memory on the heap 
+    //                     // and returns a pointer to the first byte of that block. 
+                           // This causes a memory leak, as the previously allocated block of memory is no longer accessible and cannot be freed,
+                           // because next line of code the p is overwritted by the first address of static array r[] returned by getrandom().
+    int *p = getrandom(); // the pointer p is immediately overwritten with the value returned by getrandom().
 
     for(int i = 0; i<10; i++){
         cout << "*(p+" << i << ") = " << *(p+i) << endl;
@@ -237,7 +240,7 @@ int main(){
 
 /*=======================string========================*/
     #include <string>  
-    cout << "<=========string=========>" << endl;
+    cout << "<=======================string=======================>" << endl;
     // end by the '\0'
     char r[5] = {'a', 'b', 'c', 'd', '\0'};
     char rr[] = "abcd";
@@ -250,81 +253,94 @@ int main(){
     // cin.getline()
     // char s[20];
     // cin.getline(s, 20);
-    // cout << "s[20] = " << s << endl;
+    // cout << "s = " << s << endl;
 
     // cin.get(), used to digest the Enter key
     // cin.get();
 
     // raw string
-    cout << u8R"((UTF-8) not to explain Escape symbol(转义字符)\n)" << endl;
+    cout << u8R"((UTF-8) not to explain Escape symbol \n)" << endl;
 
 
 
 /*=======================pointer========================*/
     cout << endl << endl;
-    cout << "<=========pointer=========>" << endl;
+    cout << "<=======================pointer=======================>" << endl;
      
     // NULL pointer
+    printsubtitle("NULL pointer");
     int *pp = nullptr;
     cout << "pp = " << pp << endl;
 
     // use pointer as array, can create a dynamic array, but no suggestion
     cout << endl << endl;
     int *t = new int();
-    *t = 1;*(t+1)=2;
+    *t = 1;*(t+1)=2; // The +1 is attempting to access memory that is not allocated for t, which can result in undefined behavior.
     cout << "t[0] = " << t[0] << endl;
     cout << "t[1] = " << t[1] << endl;
     cout << "t[-1] = " << t[-1] << endl; // overflow the array can run, but is illegal
     delete t;
-    t = NULL; // when delete the dynamic pointer, must to point it to NULL
-    *t = 1;
-    cout << "sizeof(t) = " << sizeof(t) << endl;
-    cout << "t = " << t << endl;
+    t = nullptr; // when delete the dynamic pointer, must to point it to NULL
+
+    // *t = 1; // Attempting to dereference a null pointer, as in the statement *t = 1;
+    //         // results in undefined behavior and can cause the program to crash or exhibit unexpected behavior.
 
     for(int i = 0; i<5; ++i){ //++i faster than i++
-        cout << i << "\t";
-    }
+        cout << i << "\t";    // because ++i increments the value of i and returns the new value, that the code can proceed with the updated value,
+    }                         // while i++ increments the value of i but returns the old value, that requires creating a copy of the pld value or retrieving it from memory
     cout << endl;
 
     // int pointer array
     cout << endl << endl;
+    printsubtitle("int pointer array");
     int *ptr[3];
     int ii[3] = {10, 11, 12};
     for(int i = 0; i < 3; ++i){
-        ptr[i] = &ii[i];
+        ptr[i] = &ii[i];  // the every element in ptr[3] is store the address of the element in ii[3]
         cout << "*ptr[i] = " << *ptr[i] << endl;
     }
 
     // char pointer array, different from int
     cout << endl << endl;
+    printsubtitle("char pointer array");
     const char *ptrst[3] = {"abc", "cde", "efg"};
     for(int i = 0; i < 3; ++i){
-        cout << "the value of ptrst[i] = " << ptrst[i] << endl;
-        cout << "the first value of st[" << i << "] = " << *ptrst[i] << endl;
+        cout << "the value of ptrst[i] = " << ptrst[i] << endl; 
+        cout << "the first value of ptrst[" << i << "] = " << *ptrst[i] << endl;
         cout << "*(ptrst[i] + 1) = " << *(ptrst[i] + 1) << endl;
     }
 
-    // const int *p == int const *p, the address can change, but can't change the value it points to with this pointer
+    // const int *p == int const *p, define a pointer p to an integer value that cannot be modified through the pointer.
+    cout << endl << endl;
     int sseee = 1;
     const int *pc1 = &sseee;
     int const *pc2;
     int ssee2 = 2;
     pc1 = &ssee2;
+    // *pc1 = 2; is illegal, because the pointer just can pointer another address, but can not change the int which it point.
+    cout << "*pc1 = " << *pc1 << endl; // 2
+    cout << "pc1 = " << pc1 << endl;
 
 
-    // int * const p, the pointer address can't change, but the int() it point to can change, and must be initialized
+    // int * const p, the pointer address can't change, but the int it point to can change, and must be initialized
     cout << endl << endl;
     int constp = 1;
     int * const cp = &constp;
     constp = 2;
-    cout << "*cp = " << *cp << endl;
+    cout << "*cp = " << *cp << endl; // 2
     cout << "cp = " << cp << endl;
-    *cp = 3;
-    cout << "*cp = " << *cp << endl;
+    *cp = 3; // modifies the value of constp to 3
+    cout << "constp = " << constp << endl;
+    cout << "*cp = " << *cp << endl; // 3
     cout << "cp = " << cp << endl; // the address of cp is not change
+
+    // cp = &ssee2; Error, cannot change the value of cp
+
+
 
     // array pointer, can point to a mult-dimension
     cout << endl << endl;
+    printsubtitle("array pointer");
     int app[2][2] = {
         {1,2},
         {3,4},
@@ -413,7 +429,7 @@ int main(){
 
 /*=======================reference========================*/
     cout << endl << endl;
-    cout << "<=========reference=========>" << endl;
+    cout << "<=======================reference=======================>" << endl;
 
     // the difference about pointer and reference as the function parameter
     void func1(Demo);
@@ -433,7 +449,7 @@ int main(){
 
 /*=======================date and time========================*/
     cout << endl << endl;
-    cout << "<=========date and time=========>" << endl;
+    cout << "<=======================date and time=======================>" << endl;
 
     // get the current and UTC date and time
     void get_DateTime();
@@ -461,7 +477,7 @@ int main(){
 
 /*=======================I/O========================*/
     cout << endl << endl;
-    cout << "<=========I/O=========>" << endl;
+    cout << "<=======================I/O=======================>" << endl;
     // cerr, Non-buffered, it will definitely be printed on the screen, 
     // Even if memory have no space, it still can be print out
     char err[] = "The Error Message: ";
@@ -476,7 +492,7 @@ int main(){
 
 /*=======================struct========================*/
     cout << endl << endl;
-    cout << "<=========struct=========>" << endl;
+    cout << "<=======================struct=======================>" << endl;
 
     BOOKS book;
     strcpy(book.title, "ABDSS"); // #include<cstring>
@@ -778,8 +794,13 @@ int *returnarr(int a, int b, int SIZE){
     for(int i = 0; i < SIZE; i++){
         r[i] = (double)rand() / RAND_MAX * (b - a) + a;
     }
-
     return r;
-    delete[] r;
-    r = NULL;
+};
+
+
+
+void printsubtitle(string subtitle){
+    string separator1 = "<=====";
+    string separator2 = "=====>";
+    cout << separator1 + subtitle + separator2 << endl;
 };
