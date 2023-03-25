@@ -218,17 +218,20 @@ int main(){
     void array_f2(int array[10]); // the size is known
     void array_f3(int array[]); // the size is unknown
 
-    int *getrandom(); //static int r[]
+    int *getrandom(void); // make it clear to compiler that it is an empty argument list function
     // int *p = new int(); // this dynamically allocates an integer-sized block of memory on the heap 
     //                     // and returns a pointer to the first byte of that block. 
                            // This causes a memory leak, as the previously allocated block of memory is no longer accessible and cannot be freed,
                            // because next line of code the p is overwritted by the first address of static array r[] returned by getrandom().
-    int *p = getrandom(); // first call the getrandom(), then assign to p // the pointer p is immediately overwritten with the value returned by getrandom().
+    int *p = getrandom(); // first call the getrandom(), then assign its return value to the pointer p.
 
+    cout << "<=====*getrandom()=====>" << endl;
     for(int i = 0; i<10; i++){
         cout << "*(p+" << i << ") = " << *(p+i) << endl;
     }
 
+    cout << endl;
+    cout << "<=====*returnarr()=====>" << endl;
     int *returnarr(int a, int b, int SIZE); // int *p = new int[SIZE]
     p = returnarr(0, 100, 10);
     for(int i = 0; i < 10; i++){
@@ -312,18 +315,20 @@ int main(){
 
     // const int *p == int const *p, define a pointer p to an integer value that cannot be modified through the pointer.
     cout << endl << endl;
+    printsubtitle("const int *p and int const *p");
     int sseee = 1;
     const int *pc1 = &sseee;
     int const *pc2;
     int ssee2 = 2;
     pc1 = &ssee2;
-    // *pc1 = 2; is illegal, because the pointer just can pointer another address, but can not change the int which it point.
+    // *pc1 = 2; is illegal, because the pointer just can point another address, but can not change the int which it point.
     cout << "*pc1 = " << *pc1 << endl; // 2
     cout << "pc1 = " << pc1 << endl;
 
 
     // int * const p, the pointer address can't change, but the int it point to can change, and must be initialized
     cout << endl << endl;
+    printsubtitle("int * const p");
     int constp = 1;
     int * const cp = &constp;
     constp = 2;
@@ -346,13 +351,13 @@ int main(){
         {3,4},
     };
 
-    int (*ap)[2] = app; // must be initialized
+    int (*ap)[2] = app; // means that ap is a pointer to an array of size 2 containing integers.
     for(int i = 0; i < 2; ++i){
-        cout << "ap + " << i << " = " << ap + i << endl;  // ap+i 是一维数组app[i]的地址，即ap+i==&app[i]==*(ap+i)
+        cout << "ap + " << i << " = " << ap + i << endl;  // ap+i is equal to &app[i]
         cout << "&app[" << i << "] = " << &app[i] << endl;
-        cout << "*(ap + " << i << ") = " << *(ap + i) << endl;
-
-        cout << "**(ap + " << i << ") = " << **(ap + i) << endl; // 二级指针 **(ptr + i) = pp[i][0];
+        cout << "*(ap + " << i << ") = " << *(ap + i) << endl; // *(ap+i) is equal to &app[i]
+        cout << "*(*ap + " << i << ") = " << *(*ap + i) << endl; // *(*ap+i) = app[i][0]
+        cout << "**(ap + " << i << ") = " << **(ap + i) << endl; // **(ap+i) = app[i][0];
         cout << endl;
         for(int j = 0; j < 2; ++j){
             cout << "app[i][j] = " << app[i][j] << endl;
@@ -363,6 +368,7 @@ int main(){
 
     // multilevel pointer
     cout << endl << endl;
+    printsubtitle("mutilevel pointer");
     int var = 100;
     int *mptr = &var; // mptr = &var
     int **pmptr = &mptr; // pmptr = &mptr
@@ -380,11 +386,11 @@ int main(){
     int getp(int *);
     getp(&var);
 
-    //-------空指针-------//
+    //-------null pointer-------//
     int *p4 = NULL;
-    //printf("%d",*p4); //运行Error，使用指针时必须先判断是否空指针
+    //printf("%d",*p4); //Error，should judge whether it is an nullptr before use a pointor
 
-    //-------野指针（悬浮、迷途指针）-------//
+    //-------wild pointer (dangling pointer)-------//
     int *p5 = new int(5);
     delete p5;
     p5 = NULL; //一定要有这一步
@@ -778,13 +784,12 @@ int get_random(int a, int b){
 };
 
 
-int *getrandom(){
+int *getrandom(void){
     static int r[10];
     srand( (unsigned)time(NULL) );
     for(int i = 0; i<10; i++){
         r[i] = rand();
     }
-
     return r;
 };
 
