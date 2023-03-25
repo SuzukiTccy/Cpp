@@ -203,8 +203,8 @@ int main(){
     // array pointer
     int *arr;
     arr = array;
-    cout << "array[5] = " << "*(arr+5) = " << *(arr+5) << endl;
-    cout << "array[5] = " << "*(array+5) = " << *(array+5) << endl;
+    cout << "array[5] = " << "*(arr+5) = " << *(arr+5) << endl;  // 6
+    cout << "array[5] = " << "*(array+5) = " << *(array+5) << endl;  // 6
 
     // type_char array address
     char name[] = {"Zara Ali"};
@@ -220,7 +220,7 @@ int main(){
 
     int *getrandom(); //static int r[]
     int *p = new int();
-    p = getrandom();
+    p = getrandom(); // first call the getrandom(), then assign to p
 
     for(int i = 0; i<10; i++){
         cout << "*(p+" << i << ") = " << *(p+i) << endl;
