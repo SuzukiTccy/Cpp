@@ -387,20 +387,26 @@ int main(){
     getp(&var);
 
     //-------null pointer-------//
-    int *p4 = NULL;
+    int *p4 = nullptr;
     //printf("%d",*p4); //Error，should judge whether it is an nullptr before use a pointor
 
     //-------wild pointer (dangling pointer)-------//
     int *p5 = new int(5);
     delete p5;
-    p5 = NULL; //一定要有这一步
-    // printf("%d",*p5);  //隐藏bug，delete掉指针后一定要置0，不然指针指向位置不可控，运行中可导致系统挂掉
+    p5 = nullptr; // There must be this step
+    // printf("%d",*p5);  // hide bug，after deleting a pointer, it is necessary to set it to NULL, 
+                          // otherwise the pointer may point to an uncontrollable location, which can cause the system to crash during runtime.
 
-    //-------指针的内存泄漏-------//
+
+
+    //-------pointer memory leak------//
+    cout << endl;
+    printsubtitle("pointer memory leak");
     int *p6 = new int(6);
-    cout << endl << "*p6 = " << *p6 << endl;
+    cout << "*p6 = " << *p6 << endl;
     // delete p6;
-    p6 = new int(7); //p6原本指向的那块内存尚未释放，结果p6又指向了别处，原来new的内存无法访问，也无法delete了，造成memory leak
+    p6 = new int(7); // The block of memory that p6 originally pointed to has not yet been freed, and p6 points elsewhere.
+                     // Originally, the new memory cannot be accessed and cannot be deleted, causing a memory leak.
 
     int *p7 = new int[10];
     delete [] p7; // new[] and delete[]
@@ -417,7 +423,8 @@ int main(){
 
 
     // function pointer
-    cout << endl << endl;
+    cout << endl;
+    printsubtitle("function pointer");
     int (*fp)(int);
     int ff(int);
     fp = ff;
@@ -428,9 +435,9 @@ int main(){
     cout << "_fp(5) = " << _fp(5) << endl;
 
 
-    char * test(nullptr);
-    const char *rrr = test;
-    cout << "rrr = " << rrr << endl;
+    const char *test(void);
+    const char * (*rrr)(void) = test;
+    cout << "rrr() = " << rrr() << endl;
 
 
 /*=======================reference========================*/
@@ -653,7 +660,7 @@ int ff(int a){
     return a + 1;
 }
 
-const char * test(){
+const char *test(void){
     const char *r = "sbsss"; // char *r = "sbsss" is error, cause the string are the const value
     return r;
 }
