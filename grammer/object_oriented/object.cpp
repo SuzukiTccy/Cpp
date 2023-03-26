@@ -7,6 +7,11 @@ class Box{
     private:
         char father;
         int *ptr;
+    
+    protected:
+        double length;
+        double breadth;
+        double height;
 
     public:
         // static Member
@@ -51,11 +56,7 @@ class Box{
 
         friend void getBoxLenFriend(const Box& b);
         friend class FriendOfBox;
-    
-    protected:
-        double length;
-        double breadth;
-        double height;
+
 };
 
 int Box::objectcount = 0;
