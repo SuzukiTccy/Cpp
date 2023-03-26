@@ -466,23 +466,27 @@ int main(){
 
     // get the current and UTC date and time
     void get_DateTime();
+    printsubtitle("get_DataTime");
     get_DateTime();
 
 
     // get the current date and time by struct tm
     cout << endl;
+    printsubtitle("get Data by struct tm");
     void getbytm();
     getbytm();
 
 
     // get the running time
     cout << endl;
+    printsubtitle("get the running time");
     void getRTime();
     getRTime();
 
 
     // get the current date and time
     cout << endl;
+    printsubtitle("get the current data and time");
     void Get_Current_Date();
     Get_Current_Date();
 
@@ -511,18 +515,13 @@ int main(){
     strcpy(book.title, "ABDSS"); // #include<cstring>
     strcpy(book.author, "ccy");
     book.ID = 1;
-    void printbook(BOOKS);
+    void printbook(const BOOKS &);
     printbook(book);
 
     // struct initialization function
     cout << endl;
-    void initstruct();
+    void initstruct(void);
     initstruct();
-
-
-
-
-
 
 
     return 0;
@@ -530,7 +529,7 @@ int main(){
 
 
 
-void initstruct(){
+void initstruct(void){
 
     struct test{
         int data;
@@ -562,7 +561,7 @@ void initstruct(){
 
 
 
-void printbook(BOOKS book){
+void printbook(const BOOKS &book){
     cout << "title: " << book.title << endl;
     cout << "author: " << book.author << endl;
     cout << "ID: " << book.ID << endl;
