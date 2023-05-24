@@ -216,7 +216,7 @@ class OverLD{
         OverLD(){ this->len = new int; } // non-parameter constructor
                                          // since the class has pointer member,
                                          // need to open up memory space
-        OverLD(int a, int len): old(a)      
+        explict OverLD(int a, int len): old(a)      
         {
             this->len = new int;
             *(this->len) = len;
