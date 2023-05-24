@@ -1,0 +1,5 @@
+/Users/ccy/Documents/Cpp/grammer/object_oriented/build/CMakeFiles/edit_cache.dir
+/Users/ccy/Documents/Cpp/grammer/object_oriented/build/CMakeFiles/rebuild_cache.dir
+/Users/ccy/Documents/Cpp/grammer/object_oriented/bin/CMakeFiles/Object.dir
+/Users/ccy/Documents/Cpp/grammer/object_oriented/bin/CMakeFiles/edit_cache.dir
+/Users/ccy/Documents/Cpp/grammer/object_oriented/bin/CMakeFiles/rebuild_cache.dir

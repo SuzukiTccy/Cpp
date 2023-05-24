@@ -38,7 +38,7 @@ class Box{
         }
 
         Box(const Box &bbox){ // if the class have the pointer variables, u must to difine a copy constructor
-            cout << R"((Call the copy constructor))" <<endl;
+            // cout << R"((Call the copy constructor))" << endl;
             ptr = new int;
             *ptr = *bbox.ptr;
 
@@ -216,7 +216,7 @@ class OverLD{
         OverLD(){ this->len = new int; } // non-parameter constructor
                                          // since the class has pointer member,
                                          // need to open up memory space
-        explict OverLD(int a, int len): old(a)      
+        explicit OverLD(int a, int len): old(a)      
         {
             this->len = new int;
             *(this->len) = len;
