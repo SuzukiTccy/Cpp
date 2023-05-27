@@ -1,5 +1,5 @@
 #include <iostream>
-#include "advanced.h"
+#include "AdvancedFunc.h"
 using namespace std;
 
 

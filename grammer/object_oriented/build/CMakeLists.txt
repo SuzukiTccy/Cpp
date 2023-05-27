@@ -12,4 +12,4 @@ set(CMAKE_CXX_STANDARD 17)
 
 # ggenerate executable file
 # add_executable(src bin)
-ADD_SUBDIRECTORY(src ../bin)
+ADD_SUBDIRECTORY(../src ../bin)

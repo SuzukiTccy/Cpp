@@ -57,10 +57,10 @@ RM = /Applications/CMake.app/Contents/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/ccy/Documents/Cpp/grammer/object_oriented/build
+CMAKE_SOURCE_DIR = /Users/ccy/Documents/Cpp/grammer/object_oriented
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/ccy/Documents/Cpp/grammer/object_oriented/build
+CMAKE_BINARY_DIR = /Users/ccy/Documents/Cpp/grammer/object_oriented
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,14 +87,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/ccy/Documents/Cpp/grammer/object_oriented/build/CMakeFiles /Users/ccy/Documents/Cpp/grammer/object_oriented/build//CMakeFiles/progress.marks
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/ccy/Documents/Cpp/grammer/object_oriented/build/CMakeFiles 0
+	cd /Users/ccy/Documents/Cpp/grammer/object_oriented && $(CMAKE_COMMAND) -E cmake_progress_start /Users/ccy/Documents/Cpp/grammer/object_oriented/CMakeFiles /Users/ccy/Documents/Cpp/grammer/bin//CMakeFiles/progress.marks
+	cd /Users/ccy/Documents/Cpp/grammer/object_oriented && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 /Users/ccy/Documents/Cpp/grammer/bin/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/ccy/Documents/Cpp/grammer/object_oriented/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 clean
+	cd /Users/ccy/Documents/Cpp/grammer/object_oriented && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 /Users/ccy/Documents/Cpp/grammer/bin/clean
 .PHONY : clean
 
 # The main clean target
@@ -103,31 +103,56 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 preinstall
+	cd /Users/ccy/Documents/Cpp/grammer/object_oriented && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 /Users/ccy/Documents/Cpp/grammer/bin/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 preinstall
+	cd /Users/ccy/Documents/Cpp/grammer/object_oriented && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 /Users/ccy/Documents/Cpp/grammer/bin/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /Users/ccy/Documents/Cpp/grammer/object_oriented && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
-#=============================================================================
-# Target rules for targets named Object
+# Convenience name for target.
+/Users/ccy/Documents/Cpp/grammer/bin/CMakeFiles/Object.dir/rule:
+	cd /Users/ccy/Documents/Cpp/grammer/object_oriented && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 /Users/ccy/Documents/Cpp/grammer/bin/CMakeFiles/Object.dir/rule
+.PHONY : /Users/ccy/Documents/Cpp/grammer/bin/CMakeFiles/Object.dir/rule
 
-# Build rule for target.
-Object: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Object
+# Convenience name for target.
+Object: /Users/ccy/Documents/Cpp/grammer/bin/CMakeFiles/Object.dir/rule
 .PHONY : Object
 
 # fast build rule for target.
 Object/fast:
-	$(MAKE) $(MAKESILENT) -f /Users/ccy/Documents/Cpp/grammer/object_oriented/bin/CMakeFiles/Object.dir/build.make /Users/ccy/Documents/Cpp/grammer/object_oriented/bin/CMakeFiles/Object.dir/build
+	cd /Users/ccy/Documents/Cpp/grammer/object_oriented && $(MAKE) $(MAKESILENT) -f /Users/ccy/Documents/Cpp/grammer/bin/CMakeFiles/Object.dir/build.make /Users/ccy/Documents/Cpp/grammer/bin/CMakeFiles/Object.dir/build
 .PHONY : Object/fast
+
+object.o: object.cpp.o
+.PHONY : object.o
+
+# target to build an object file
+object.cpp.o:
+	cd /Users/ccy/Documents/Cpp/grammer/object_oriented && $(MAKE) $(MAKESILENT) -f /Users/ccy/Documents/Cpp/grammer/bin/CMakeFiles/Object.dir/build.make /Users/ccy/Documents/Cpp/grammer/bin/CMakeFiles/Object.dir/object.cpp.o
+.PHONY : object.cpp.o
+
+object.i: object.cpp.i
+.PHONY : object.i
+
+# target to preprocess a source file
+object.cpp.i:
+	cd /Users/ccy/Documents/Cpp/grammer/object_oriented && $(MAKE) $(MAKESILENT) -f /Users/ccy/Documents/Cpp/grammer/bin/CMakeFiles/Object.dir/build.make /Users/ccy/Documents/Cpp/grammer/bin/CMakeFiles/Object.dir/object.cpp.i
+.PHONY : object.cpp.i
+
+object.s: object.cpp.s
+.PHONY : object.s
+
+# target to generate assembly for a file
+object.cpp.s:
+	cd /Users/ccy/Documents/Cpp/grammer/object_oriented && $(MAKE) $(MAKESILENT) -f /Users/ccy/Documents/Cpp/grammer/bin/CMakeFiles/Object.dir/build.make /Users/ccy/Documents/Cpp/grammer/bin/CMakeFiles/Object.dir/object.cpp.s
+.PHONY : object.cpp.s
 
 # Help Target
 help:
@@ -138,6 +163,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... Object"
+	@echo "... object.o"
+	@echo "... object.i"
+	@echo "... object.s"
 .PHONY : help
 
 
@@ -149,6 +177,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /Users/ccy/Documents/Cpp/grammer/object_oriented && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

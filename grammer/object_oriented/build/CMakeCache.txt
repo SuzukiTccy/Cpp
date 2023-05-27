@@ -217,7 +217,7 @@ Object_BINARY_DIR:STATIC=/Users/ccy/Documents/Cpp/grammer/object_oriented/build
 Object_IS_TOP_LEVEL:STATIC=ON
 
 //Value Computed by CMake
-Object_SOURCE_DIR:STATIC=/Users/ccy/Documents/Cpp/grammer/object_oriented
+Object_SOURCE_DIR:STATIC=/Users/ccy/Documents/Cpp/grammer/object_oriented/build
 
 
 ########################
@@ -298,7 +298,7 @@ CMAKE_GENERATOR_PLATFORM:INTERNAL=
 CMAKE_GENERATOR_TOOLSET:INTERNAL=
 //Source directory with the top level CMakeLists.txt file for this
 // project
-CMAKE_HOME_DIRECTORY:INTERNAL=/Users/ccy/Documents/Cpp/grammer/object_oriented
+CMAKE_HOME_DIRECTORY:INTERNAL=/Users/ccy/Documents/Cpp/grammer/object_oriented/build
 //ADVANCED property for variable: CMAKE_INSTALL_NAME_TOOL
 CMAKE_INSTALL_NAME_TOOL-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_LINKER

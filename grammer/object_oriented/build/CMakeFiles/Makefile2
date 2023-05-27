@@ -54,7 +54,7 @@ RM = /Applications/CMake.app/Contents/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/ccy/Documents/Cpp/grammer/object_oriented
+CMAKE_SOURCE_DIR = /Users/ccy/Documents/Cpp/grammer/object_oriented/build
 
 # The top-level build directory on which CMake was run.
 CMAKE_BINARY_DIR = /Users/ccy/Documents/Cpp/grammer/object_oriented/build

@@ -53,7 +53,7 @@ RM = /Applications/CMake.app/Contents/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/ccy/Documents/Cpp/grammer/object_oriented
+CMAKE_SOURCE_DIR = /Users/ccy/Documents/Cpp/grammer/object_oriented/build
 
 # The top-level build directory on which CMake was run.
 CMAKE_BINARY_DIR = /Users/ccy/Documents/Cpp/grammer/object_oriented/build
@@ -70,7 +70,7 @@ include /Users/ccy/Documents/Cpp/grammer/object_oriented/bin/CMakeFiles/Object.d
 include /Users/ccy/Documents/Cpp/grammer/object_oriented/bin/CMakeFiles/Object.dir/flags.make
 
 /Users/ccy/Documents/Cpp/grammer/object_oriented/bin/CMakeFiles/Object.dir/object.cpp.o: /Users/ccy/Documents/Cpp/grammer/object_oriented/bin/CMakeFiles/Object.dir/flags.make
-/Users/ccy/Documents/Cpp/grammer/object_oriented/bin/CMakeFiles/Object.dir/object.cpp.o: ../src/object.cpp
+/Users/ccy/Documents/Cpp/grammer/object_oriented/bin/CMakeFiles/Object.dir/object.cpp.o: /Users/ccy/Documents/Cpp/grammer/object_oriented/src/object.cpp
 /Users/ccy/Documents/Cpp/grammer/object_oriented/bin/CMakeFiles/Object.dir/object.cpp.o: /Users/ccy/Documents/Cpp/grammer/object_oriented/bin/CMakeFiles/Object.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/ccy/Documents/Cpp/grammer/object_oriented/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object /Users/ccy/Documents/Cpp/grammer/object_oriented/bin/CMakeFiles/Object.dir/object.cpp.o"
 	cd /Users/ccy/Documents/Cpp/grammer/object_oriented/bin && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT /Users/ccy/Documents/Cpp/grammer/object_oriented/bin/CMakeFiles/Object.dir/object.cpp.o -MF CMakeFiles/Object.dir/object.cpp.o.d -o CMakeFiles/Object.dir/object.cpp.o -c /Users/ccy/Documents/Cpp/grammer/object_oriented/src/object.cpp
@@ -105,6 +105,6 @@ Object_EXTERNAL_OBJECTS =
 .PHONY : /Users/ccy/Documents/Cpp/grammer/object_oriented/bin/CMakeFiles/Object.dir/clean
 
 /Users/ccy/Documents/Cpp/grammer/object_oriented/bin/CMakeFiles/Object.dir/depend:
-	cd /Users/ccy/Documents/Cpp/grammer/object_oriented/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/ccy/Documents/Cpp/grammer/object_oriented /Users/ccy/Documents/Cpp/grammer/object_oriented/src /Users/ccy/Documents/Cpp/grammer/object_oriented/build /Users/ccy/Documents/Cpp/grammer/object_oriented/bin /Users/ccy/Documents/Cpp/grammer/object_oriented/bin/CMakeFiles/Object.dir/DependInfo.cmake --color=$(COLOR)
+	cd /Users/ccy/Documents/Cpp/grammer/object_oriented/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/ccy/Documents/Cpp/grammer/object_oriented/build /Users/ccy/Documents/Cpp/grammer/object_oriented/src /Users/ccy/Documents/Cpp/grammer/object_oriented/build /Users/ccy/Documents/Cpp/grammer/object_oriented/bin /Users/ccy/Documents/Cpp/grammer/object_oriented/bin/CMakeFiles/Object.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : /Users/ccy/Documents/Cpp/grammer/object_oriented/bin/CMakeFiles/Object.dir/depend
 
