@@ -13,6 +13,8 @@ void *sayHello(void *thread_id){
     int tid = *((int *)thread_id); // int * cast type
     cout << "Hello World! Thread_id :" << tid << endl;
     pthread_exit(NULL);
+    
+    return nullptr;
 }
 
 
@@ -49,6 +51,8 @@ void *printdata(void *threadarg){
     cout << "Thread_id: " << tdata->thread_id << endl;
     cout << "message: " << tdata->message << endl;
     pthread_exit(NULL);
+
+    return nullptr;
 }
 
 void pthreadTest2(){

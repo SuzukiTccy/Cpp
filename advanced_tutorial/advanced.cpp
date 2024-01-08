@@ -9,12 +9,12 @@ using namespace std;
 int main(){
 /*=======================file and stream========================*/
     cout << "<===========file and stream===========>" << endl;
-    // openFileTest();
+    openFileTest();
 
 
 /*=======================exception handing========================*/
     cout << "<===========exception handing===========>" << endl;
-    // exceptionTest();
+    exceptionTest();
 
 
 /*=======================dynamic memory space========================*/

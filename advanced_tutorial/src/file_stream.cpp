@@ -33,7 +33,7 @@ void openFileTest(){
     fstream outfile;
     outfile.open("testout.dat", ios::out | ios::trunc);
     file.open("test.dat", ios::in);
-    file.seekg(0, ios::beg);
+    file.seekg(0, ios::beg); // 定位到 file 的起始的第0个字节
     string info[2] = {"Your name: ", "Your age: "};
     string s;
     int idx = 0;
@@ -49,14 +49,14 @@ void openFileTest(){
 
 
     file.open("test.dat", ios::in);
-    file.seekg(2, ios::beg);
+    file.seekg(2, ios::beg);  // 定位到 file 的起始的第2个字节
     file >> f;
     cout << "f:" << f << endl; // y
-    file.seekg(2, ios::cur);
+    file.seekg(2, ios::cur);  // 定位到 file 的当前流的往后的第2个字节
     file >> f;
-    cout << "f:" << f << endl; // 3
+    cout << "f:" << f << endl; // y
     file.seekg(ios::end);
-    file >> f;
+    file >> f;  // 定位到 file 的末尾的往前的第0个字节
     cout << "f:" << f << endl; // y, the pointer point to the first string, so the end of ccy is 'y'
     file.close();
 

@@ -46,17 +46,20 @@ void dynamicTest(){
     }
 
     for(i=0;i<3;++i){
-        cout << "[";
+        if(i == 0) cout << '[';
         for(j=0;j<4;++j){
-            if (j == 0)
-                cout << "[";
+            if (j == 0){
+                if(i != 0) cout << ' ';
+                cout << '[';
+            }
             else
                 cout << "  ";
             for(k=0;k<5;++k){
                 if(k == 4 && j == 3)
-                    cout << p[i][j][k] << ']' << endl;
+                    cout << p[i][j][k] << ']';
                 else
                     cout << p[i][j][k] << '\t';
+                if(i == 2 && j == 3 && k == 4) cout << ']';
             }
             cout << endl;
         }
