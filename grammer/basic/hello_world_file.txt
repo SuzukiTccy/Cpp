@@ -1,0 +1,21 @@
+这个文档是对于hello_world.cpp的技术说明
+
+1. enum 枚举类型
+https://www.runoob.com/w3cnote/cpp-enum-intro.html
+
+2. struct 结构体
+结构体和联合体的区别
+https://www.runoob.com/cplusplus/cpp-data-structures.html
+
+3. #define ｜ typedef ｜ using | #if #endif
+https://www.runoob.com/cplusplus/cpp-preprocessor.html
+https://blog.csdn.net/choumin/article/details/108614962
+#if 和 # ifdef
+前者只用来判断后面的语句，后者用来判断某个宏是否被定义
+
+4. 显示构造函数
+https://veitchkyrie.github.io/2019/10/18/C++-explicit%E5%85%B3%E9%94%AE%E5%AD%97-%E8%AF%A6%E8%A7%A3-%E7%94%A8%E4%BA%8E%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0/
+
+5. lambda函数
+https://blog.csdn.net/Trouble_provider/article/details/90521215
+https://www.runoob.com/cplusplus/cpp-functions.html 

@@ -48,12 +48,20 @@ using color = COLOR; // firstly
 int count = 1;
 int fun()
 {
-    static int scount = 10; // 在第一次进入这个函数的时候，变量 scount 被初始化为 10！并接着自减 1，以后每次进入该函数，count 的值是上一次函数运行之后的值
+    static int scount = 10; // 在第一次进入这个函数的时候，变量 scount 被初始化为 10 并接着自减 1，以后每次进入该函数，count 的值是上一次函数运行之后的值
     return scount--;        // 就不会被再次初始化了，仅进行自减 1 的操作；在 static 发明前，要达到同样的功能，则只能使用全局变量
 };
 
 static int ccount; //声明了一个只能在当前文件访问的全局变量
 static void ff(); //声明了一个只能在当前文件访问的函数（内部函数）
+
+void ff(){}
+
+void printsubtitle(string subtitle){
+    string separator1 = "<=====";
+    string separator2 = "=====>";
+    cout << separator1 + subtitle + separator2 << endl;
+};
 
 int main(){
     void printsubtitle(string subtitle);
@@ -77,7 +85,7 @@ int main(){
     }
 
 
-/*=======================explicit constructor demonstration========================*/
+/*=======================explicit(显式) constructor demonstration========================*/
     class Test{
     public:
         explicit Test(int n){
@@ -88,7 +96,7 @@ int main(){
     };
 
     Test t1(12);
-    // Test t2 = 12; // Error, because declare the explicit constructor, 
+    // Test t2 = 12; // Error, because when declare the explicit constructor, 
                      // then the constructor must be called explicitly
 
 
@@ -806,12 +814,4 @@ int *returnarr(int a, int b, int SIZE){
         r[i] = (double)rand() / RAND_MAX * (b - a) + a;
     }
     return r;
-};
-
-
-
-void printsubtitle(string subtitle){
-    string separator1 = "<=====";
-    string separator2 = "=====>";
-    cout << separator1 + subtitle + separator2 << endl;
 };
