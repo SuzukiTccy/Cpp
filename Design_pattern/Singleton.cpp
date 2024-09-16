@@ -10,6 +10,7 @@ class A
 public:
     static A& getInstance();
     int getval() const { return val; };
+    void setval(int val) { this->val = val; };
 private:
     int val;
     A(): val(0) {};
@@ -23,6 +24,8 @@ A& A::getInstance(){
 
 int main()
 {   
+    cout << A::getInstance().getval() << endl;
+    A::getInstance().setval(10);
     cout << A::getInstance().getval() << endl;
     return 0;
 }
