@@ -81,7 +81,7 @@ int main(){
 /*=======================static variable demonstration========================*/
     cout << "<=======================static variable demonstration=======================>" << endl;
     for(int i = 1; i <= 5; i++){
-        cout << "scount:" << fun() <<endl;
+        cout << "scount:" << fun() << endl;
     }
 
 
@@ -692,7 +692,10 @@ void lambda_exp()
     int x = 10;
     auto add_x = [x](int a) mutable { x += 1; return a + x; };  // copy capture x
     auto multiply_x = [&x](int a) mutable { x += 5; return a * x; };  // reference capture x
+    // 加了mutable关键字后，lambda表达式就可以修改按值捕获的变量了，可以认为x成为了add_x和multiply_x的局部变量
+    // 多次调用会发现x的值在变化
     
+    cout << "add_x(10) = " << add_x(10) << endl;  // 21
     cout << "add_x(10) = " << add_x(10) << endl;  // 20
     cout << "multiply_x(10) = " << multiply_x(10) << endl; // 150
     cout << "x = " << x << endl; // 15
@@ -710,10 +713,10 @@ void lambda_exp2()
         }
     });
 
-    cout << "even_count1 = " << even_count1 << endl; 
+    cout << "even_count1 = " << even_count1 << endl; // 5
 
     int even_count2 = count_if(v.begin(), v.end(), [](int a) {return a & 1;});
-    cout << "even_count2 = " << even_count2 << endl; 
+    cout << "even_count2 = " << even_count2 << endl; // 5
 
 };
 
@@ -729,7 +732,7 @@ void lambda_exp3()
     auto fun1 = [=, &i]{
         cout << "&i = " << &i << endl;
         cout << "&j = " << &j << endl;
-        cout << "the address of j has changed!" << endl;
+        cout << "the address of j has changed!" << endl; // j是值捕获，所以j的地址会改变
     };
     fun1();
 

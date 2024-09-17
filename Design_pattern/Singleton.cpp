@@ -14,7 +14,7 @@ public:
 private:
     int val;
     A(): val(0) {};
-    A(const A& val) = delete; // 禁止拷贝构造
+    A(const A& a) = delete; // 禁止拷贝构造
 };
 
 A& A::getInstance(){
