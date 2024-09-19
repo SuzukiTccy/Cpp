@@ -213,6 +213,8 @@ int main(){
     arr = array;
     cout << "array[5] = " << "*(arr+5) = " << *(arr+5) << endl;  // 6
     cout << "array[5] = " << "*(array+5) = " << *(array+5) << endl;  // 6
+    int *pp0, *pp1;
+    int *ppp[2] = {pp0, pp1}; // 指针数组
 
     // type_char array address
     char name[] = {"Zara Ali"};
@@ -220,8 +222,9 @@ int main(){
     cout << &name << endl; // output: the first address of string
     cout << (void *)&name[1] << endl; //由于&name[1]的类型是char*,直接输出会是字符串，
                                       //所以需要强转成其他类型才能输出地址
+    cout << name[0] << endl; // Z
 
-    // Pass the array to the function, array as the argument of function
+    // Pass the array to the function, array as the argument of function, 会改变数组的值
     void array_f1(int *array);
     void array_f2(int array[10]); // the size is known
     void array_f3(int array[]); // the size is unknown
@@ -295,11 +298,15 @@ int main(){
 
     // *t = 1; // Attempting to dereference a null pointer, as in the statement *t = 1;
     //         // results in undefined behavior and can cause the program to crash or exhibit unexpected behavior.
+    t = new int(); // t 指针的重新使用
+    *t = 1;
+    delete t;
+    t = nullptr;
 
     for(int i = 0; i<5; ++i){ //++i faster than i++
         cout << i << "\t";    // because ++i increments the value of i and returns the new value, that the code can proceed with the updated value,
     }                         // while i++ increments the value of i but returns the old value, that requires creating a copy of the pld value or retrieving it from memory
-    cout << endl;
+    cout << endl;             // 由于后缀运算符需要返回对象的副本，产生了额外的复制开销，因此++i的效率通常高于i++ 
 
     // int pointer array
     cout << endl << endl;
@@ -314,7 +321,7 @@ int main(){
     // char pointer array, different from int
     cout << endl << endl;
     printsubtitle("char pointer array");
-    const char *ptrst[3] = {"abc", "cde", "efg"};
+    const char *ptrst[3] = {"abc", "cde", "efg"}; // 字符串常量数组，每个元素都是一个指向字符的指针，指向一个字符串常量
     for(int i = 0; i < 3; ++i){
         cout << "the value of ptrst[i] = " << ptrst[i] << endl; 
         cout << "the first value of ptrst[" << i << "] = " << *ptrst[i] << endl;
@@ -350,7 +357,6 @@ int main(){
     // cp = &ssee2; Error, cannot change the value of cp
 
 
-
     // array pointer, can point to a mult-dimension
     cout << endl << endl;
     printsubtitle("array pointer");
@@ -363,7 +369,7 @@ int main(){
     for(int i = 0; i < 2; ++i){
         cout << "ap + " << i << " = " << ap + i << endl;  // ap+i is equal to &app[i]
         cout << "&app[" << i << "] = " << &app[i] << endl;
-        cout << "*(ap + " << i << ") = " << *(ap + i) << endl; // *(ap+i) is equal to &app[i]
+        cout << "*(ap + " << i << ") = " << *(ap + i) << endl; // *(ap+i) is equal to &app[i], 因为*ap的值本身就是一个指向数组的指针，所以*(ap+i)就是app[i]的地址
         cout << "*(*ap + " << i << ") = " << *(*ap + i) << endl; // *(*ap+i) = app[i][0]
         cout << "**(ap + " << i << ") = " << **(ap + i) << endl; // **(ap+i) = app[i][0];
         cout << endl;
@@ -803,8 +809,8 @@ int get_random(int a, int b){
 
 int *getrandom(void){
     static int r[10];
-    srand( (unsigned)time(NULL) );
-    for(int i = 0; i<10; i++){
+    srand( (unsigned)time(NULL) ); // time(NULL) 返回time_t类型, 通常是长整型
+    for(int i = 0; i<10; i++){     // srand需要传入一个unsigned类型的参数 
         r[i] = rand();
     }
     return r;
@@ -814,7 +820,7 @@ int *returnarr(int a, int b, int SIZE){
     int *r = new int[SIZE];
     srand( (unsigned)time(NULL) );
     for(int i = 0; i < SIZE; i++){
-        r[i] = (double)rand() / RAND_MAX * (b - a) + a;
+        r[i] = (double)rand() / RAND_MAX * (b - a) + a; // double转为int，将会被截断
     }
     return r;
 };
