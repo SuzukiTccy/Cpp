@@ -388,15 +388,15 @@ int main(){
     int **pmptr = &mptr; // pmptr = &mptr
     cout << "&var = " << &var << endl;
     cout << "mptr = " << mptr << endl;
-    cout << "*pmptr = " << *pmptr << endl;
+    cout << "*pmptr = " << *pmptr << endl; // *pmptr = mptr = &var
     cout << endl;
     cout << "&mptr = " << &mptr << endl;
     cout << "pmptr = " << pmptr << endl;
-    cout << "**pmptr = " << **pmptr << endl;
+    cout << "**pmptr = " << **pmptr << endl; // **pmptr = *mptr = var
 
     cout << endl;
     **pmptr = 120;
-    cout << "var = " << var << endl;
+    cout << "var = " << var << endl; // var = 120
     int getp(int *);
     getp(&var);
 
@@ -628,7 +628,7 @@ void getRTime(){
     start_t = clock();
     cout << "循环启动时间: " << start_t << endl;
 
-    for(int i = 0; i < 100000; ++i){
+    for(int i = 0; i < 1000000; ++i){
 
     }
     end_t = clock();
@@ -642,7 +642,7 @@ void getRTime(){
 
 void Get_Current_Date()
 {
-    time_t nowtime = time(NULL); //获取日历时间   
+    time_t nowtime = time(NULL); //获取日历时间   time_t time(time_t *t);
     char tmp[64];
     strftime(tmp, sizeof(tmp), "%Y-%m-%d %H:%M:%S", localtime(&nowtime));   
     cout << tmp << endl;
@@ -685,6 +685,7 @@ int getp(int *p){
     cout << "&p = " << &p << endl;  // why it can work? because when use the getp(int *), 
                                     // then a pointer will be create and point to the address which is &var,
                                     // the &p actually is the address of pointer above
+                                    // 也就是说，传指针实际上还是会复制
 
     return 0;
 }
