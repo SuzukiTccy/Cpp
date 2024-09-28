@@ -6,11 +6,11 @@ using namespace std;
 
 void openFileTest(){
     fstream file;
-    file.open("test.dat", ios::out | ios::trunc);
-    if (!file){
-        cerr << "Open file error !" << endl;
-        return;
-    }
+    file.open("test.dat", ios::out | ios::trunc); // ios::out 打开文件用于写入。
+    if (!file){                                   // ios::trunc 如果文件存在则先删除，然后创建一个新文件。
+        cerr << "Open file error !" << endl;      // ios::in 打开文件用于读取。
+        return;                                   // ios::app 打开文件用于追加。如果文件不存在，则会创建一个新文件。
+    }                                             // ios::ate 打开文件后定位到文件末尾。
     string name;
     cout << "Please enter your name: "; // ccy
     getline(cin, name);

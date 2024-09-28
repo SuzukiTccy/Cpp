@@ -23,11 +23,11 @@ class Box{
         void setlength(double l){ length = l; } // inline function
         void setbreadth(double b){ breadth = b; }
         void setheight(double h){ height = h; }
-        double getVolume(){
+        double getVolume() const{
             return length * breadth * height; 
         }
-        int getptr(){ return *ptr; }
-        double getlength(){ return length; }
+        int getptr() const{ return *ptr; }
+        double getlength() const{ return length; }
         Box(double l, double b, double h, int len): length(l), breadth(b), height(h)
         {
             ptr = new int;
@@ -38,9 +38,11 @@ class Box{
         }
 
         Box(const Box &bbox){ // if the class have the pointer variables, u must to difine a copy constructor
-            // cout << R"((Call the copy constructor))" << endl;
+            cout << R"((Call the copy constructor))" << endl;
             ptr = new int;
-            *ptr = *bbox.ptr;
+            *ptr = *bbox.ptr; // 复制原始内存的内容到新的内存
+                              // 不能简单地使用 ptr = bbox.ptr。这是因为这将使两个指针指向同一个内存位置，
+                              // 当你释放其中一个指针所指向的内存时，另一个指针将变成悬空指针，这可能会导致未定义行为。
 
             length = bbox.length;   // if build a copy constructor function, need to define all the member variables
             breadth = bbox.breadth; // or they will be defined as the random values.
@@ -61,9 +63,7 @@ class Box{
 
 int Box::objectcount = 0;
 
-double getBoxVolume(Box &b){  // when call getBoxVolume, it will call the copy constructor implicitly to create a temp object,
-                             // and when haved called this function, it will call the destructor, 
-                             // cause it need to delete the temp object
+double getBoxVolume(const Box& b){
     double v = b.getVolume();
     return v;
 }
@@ -135,7 +135,7 @@ class smallBox: virtual public Box{
         }
 };
 
-double getSmallBoxVolume(smallBox &b){
+double getSmallBoxVolume(const smallBox &b){
     double v = b.getVolume();
     return v;
 }

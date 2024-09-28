@@ -1,2 +1,0 @@
-/Library/Developer/CommandLineTools/usr/bin/ar qc libAdvanceFunc.a CMakeFiles/AdvanceFunc.dir/dynamic.cpp.o CMakeFiles/AdvanceFunc.dir/exception.cpp.o CMakeFiles/AdvanceFunc.dir/file_stream.cpp.o "CMakeFiles/AdvanceFunc.dir/multi-thread.cpp.o" CMakeFiles/AdvanceFunc.dir/namespace.cpp.o CMakeFiles/AdvanceFunc.dir/preprocessor.cpp.o CMakeFiles/AdvanceFunc.dir/signal_handle.cpp.o CMakeFiles/AdvanceFunc.dir/stl.cpp.o CMakeFiles/AdvanceFunc.dir/template.cpp.o
-/Library/Developer/CommandLineTools/usr/bin/ranlib libAdvanceFunc.a
