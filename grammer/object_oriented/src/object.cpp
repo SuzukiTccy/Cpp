@@ -118,7 +118,7 @@ void staticMemberTest(){
 
 
 
-class smallBox: virtual public Box{
+class smallBox: virtual public Box{  // 虚继承，解决菱形继承问题
     private:
         double smallLength;
         double smallBreath;
@@ -130,8 +130,9 @@ class smallBox: virtual public Box{
         {
             cout << "The object is be created!" << endl;
         }
+        double getlength() const { return smallLength; }
         ~smallBox(){
-            cout << R"((delete the smallBox object! ))" << endl;
+            cout << R"((delete the smallBox object! ))" << endl; //R"()" is the raw string literal
         }
 };
 
@@ -195,7 +196,7 @@ class tinyBox : public smallBox, public tiny{ // multiple inherit, unrecommend
 
 void inheritTest(){
     tinyBox tb(3.00, 4.00, 5.00, 2, 6.00, 0.1, 0.2, 0.3);
-    cout << "tb.getlength() = " << tb.getlength() << endl;
+    cout << "tb.getlength() = " << tb.getlength() << endl; //这个getlength()是Box的，因为smallBox虚继承于Box
 
 }
 
@@ -211,8 +212,8 @@ class OverLD{
         void setlen(int len){ *(this->len) = len; }
         void print(int a){ cout << "a = " << a << endl; }
         void print(double d){ cout << "d = " << d << endl; } // function overloading
-        int getlen(){ return *len; }
-        int getold(){ return old; }
+        int getlen() const { return *len; }
+        int getold() const { return old; }
         OverLD(){ this->len = new int; } // non-parameter constructor
                                          // since the class has pointer member,
                                          // need to open up memory space
@@ -236,9 +237,22 @@ class OverLD{
             cout << "call the copy constructor" << endl;
         }
 
-        OverLD(OverLD && o): old(o.old), len(o.len){ // move constructor
-            o.len = nullptr;
-            cout << "call the move constructor" << endl;
+        OverLD(OverLD && o) noexcept : old(o.old), len(o.len){ // move constructor
+            try{                                               // 移动构造函数通常被声明为noexcept，
+                o.len = nullptr;                               // 表示它不会抛出异常。这是因为移动构造函数可能会修改传入的对象
+            }catch(const exception& e){                        // 如果抛出异常，可能会导致资源泄漏。
+                cerr << "Exception: " << e.what() << endl;     // noexcept关键字告诉编译器，这个函数不会抛出异常，异常会直接传递给调用者
+                try{                                           // 所以这个函数里面写的try-catch块，不会捕获异常，这里我只是演示一下try-catch的用法
+                    delete len;
+                    delete len;
+                }catch(const exception& e){ // len可能会释放失败
+                    cerr << "Exception: " << e.what() << endl;
+                }
+                len = nullptr;
+                throw; // 处理完异常后，重新抛出异常
+            }
+                                             
+            cout << "call the move constructor" << endl;       
         }
 
         OverLD operator+(const OverLD& o){ // overloading operator as the member function
@@ -304,18 +318,20 @@ class Shape{
 
         void setwidth(double w){ width = w; }
         void setheight(double h){ height = h; }
-        double getheight(){ return height; }
-        double getwidth(){ return width; }
-        int getlen(){ return *ptr; }
-        Shape(): width(), height(), ptr(){ ptr = new int; }
-        Shape(double w, double h, int len): width(w), height(h){
+        double getheight() const { return height; }
+        double getwidth() const { return width; }
+        int getlen() const { return *ptr; }
+        void setlen(int len){ *(ptr) = len; }
+        explicit Shape(): width(), height(), ptr(new int){}
+        explicit Shape(double w, double h, int len): width(w), height(h){
             ptr = new int;
             *ptr = len;
         }
-        Shape(const Shape& s){
+        Shape(): width(), height(), ptr(new int){}
+        Shape(double w, double h, int len): width(w), height(h), ptr(new int(len)){}
+        Shape(const Shape& s){  // 拷贝构造函数可以直接用私有成员和保护成员
             ptr = new int;
             *ptr = *(s.ptr);
-            
             width = s.width;
             height = s.height;
         }
@@ -331,12 +347,11 @@ class Shape{
 
 class Rectangle : public Shape{
     public:
-        Rectangle(): Shape(){}
-        Rectangle(double w, double h, int len): Shape(w,h,len){}
-        Rectangle(const Rectangle& s){
-            ptr = new int;
-            *ptr = *(s.ptr);
-            
+        explicit Rectangle(): Shape(){}
+        explicit Rectangle(double w, double h, int len): Shape(w,h,len){}
+        Rectangle(const Rectangle& s){ // 拷贝构造函数不能用explicit修饰
+            ptr = new int;             // 拷贝构造函数也可以用初始化列表
+            *ptr = *(s.ptr);           // 用了explicit修饰，编译器将不能自动调用拷贝构造函数
             width = s.width;
             height = s.height;
         }
@@ -363,12 +378,11 @@ class Rectangle : public Shape{
 
 class Triangle : public Shape{
     public:
-        Triangle(): Shape(){}
-        Triangle(double w, double h, int len): Shape(w,h,len){}
+        explicit Triangle(): Shape(){}
+        explicit Triangle(double w, double h, int len): Shape(w,h,len){}
         Triangle(const Triangle& s){
             ptr = new int;
             *ptr = *(s.ptr);
-            
             width = s.width;
             height = s.height;
         }
@@ -392,7 +406,7 @@ class Triangle : public Shape{
 };
 
 
-class finalClass final : public Shape {
+class finalClass final : public Shape { // final class can't be inherit
     public:
         double area() final{
             cout << "this class can't be inherit \n" 
