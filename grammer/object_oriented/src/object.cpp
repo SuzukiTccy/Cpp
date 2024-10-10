@@ -323,12 +323,7 @@ class Shape{
         int getlen() const { return *ptr; }
         void setlen(int len){ *(ptr) = len; }
         explicit Shape(): width(), height(), ptr(new int){}
-        explicit Shape(double w, double h, int len): width(w), height(h){
-            ptr = new int;
-            *ptr = len;
-        }
-        Shape(): width(), height(), ptr(new int){}
-        Shape(double w, double h, int len): width(w), height(h), ptr(new int(len)){}
+        explicit Shape(double w, double h, int len): width(w), height(h), ptr(new int(len)){}
         Shape(const Shape& s){  // 拷贝构造函数可以直接用私有成员和保护成员
             ptr = new int;
             *ptr = *(s.ptr);
