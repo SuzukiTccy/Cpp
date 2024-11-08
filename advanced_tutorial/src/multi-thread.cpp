@@ -79,6 +79,7 @@ void foo(int Z){
     }
 }
 
+// 通过类中的 operator() 方法定义函数对象来创建线程
 class thread_obj{
     public:
         void operator()(int x){

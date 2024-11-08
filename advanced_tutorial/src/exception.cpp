@@ -31,9 +31,9 @@ void exceptionTest(){
         double c = division(a, b);
         cout << "the result is " << c << endl;
     }catch(MyException& e){ // My expception
-        cout << e.what() << endl;
+        cerr << e.what() << endl;
     }catch(exception& e){ // other expception
-        cout << e.what() << endl;
+        cerr << e.what() << endl;
     }
 
 

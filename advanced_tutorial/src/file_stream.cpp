@@ -55,8 +55,8 @@ void openFileTest(){
     file.seekg(2, ios::cur);  // 定位到 file 的当前流的往后的第2个字节
     file >> f;
     cout << "f:" << f << endl; // y
-    file.seekg(ios::end);
-    file >> f;  // 定位到 file 的末尾的往前的第0个字节
+    file.seekg(ios::end);  // 定位到 file 的末尾的往前的第0个字节
+    file >> f;  
     cout << "f:" << f << endl; // y, the pointer point to the first string, so the end of ccy is 'y'
     file.close();
 

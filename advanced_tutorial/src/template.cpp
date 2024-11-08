@@ -65,7 +65,7 @@ inline T LengthMethod(Stack<T> const &mystack){
     typedef typename Stack<T>::stackLengthType stackLengthType; // 'typename' tell the compiler that 
                                                                 // Stack<T>::stackLengthType is a Type
                                                                 // not the member function or variable.
-    stackLengthType length = mystack.GetLength();
+    stackLengthType length = mystack.GetLength();  // 在这里调用的时候，mystact是一个const对象，所以GetLength()也要是const的
     return length;
 }
 

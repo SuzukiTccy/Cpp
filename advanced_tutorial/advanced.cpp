@@ -36,13 +36,6 @@ int main(){
     cout << "<===========preprocessor===========>" << endl;
     preprocessorTest();
 
-
-/*=======================signal Handle========================*/
-    cout << "<===========signal Handle===========>" << endl;
-    // signalHandleTest();
-
-
-
 /*=======================multi-thread========================*/
     cout << "<===========multi-thread===========>" << endl;
     cout << "<=====pthreadTest1()======>" << endl;
@@ -58,11 +51,15 @@ int main(){
     threadTest2();
 
 
-
 /*=======================STL========================*/
     cout << "<===========STL===========>" << endl;
     cout << "<===========vector===========>" << endl;
     vec();
+
+
+/*=======================signal Handle========================*/
+    cout << "<===========signal Handle===========>" << endl;
+    signalHandleTest();
 
 
     return 0;
