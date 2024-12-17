@@ -14,7 +14,6 @@ class printHelloClass{
 public:
     void operator()(int count, int thread_id) const {
         for(int i=0;i<count;i++){
-            
             cout<<"Thread_id "<< thread_id << ": Hello World(class)! "<< i << endl;
         }
     }
@@ -42,6 +41,14 @@ public:
 };
 
 
+void printHello_lock_guard(int count, int thread_id){
+    for(int i=0;i<count;i++){
+        lock_guard<mutex> guard(mtx); // 加锁
+        cout<<"Thread_id "<< thread_id << ": Hello World(func)! "<< i << endl;
+    }
+}
+
+
 int main(){
     cout << "<=========多线程示例=========>" << endl;
     int num = 15;
@@ -57,7 +64,7 @@ int main(){
     t2.detach(); // 线程分离，主线程不会等待子线程执行完毕
     t3.detach(); // 线程分离，主线程不会等待子线程执行完毕
 
-    this_thread::sleep_for(chrono::seconds(3)); // 主线程休眠2.5秒，等待t2,t3执行完毕
+    this_thread::sleep_for(chrono::seconds(3)); // 主线程休眠3秒，等待t1,t2,t3执行完毕
 
     cout << "<=========互斥锁mutex示例=========>" << endl;
     thread t4(printHello_mutex, 5, 4);
@@ -74,7 +81,21 @@ int main(){
     t5.join();
     t6.join();
 
-    this_thread::sleep_for(chrono::seconds(3)); // 主线程休眠2.5秒，等待全部线程执行完毕
+    this_thread::sleep_for(chrono::seconds(3)); // 主线程休眠3秒，等待t4,t5,t6执行完毕
+
+    cout << "<=========lock_guard示例=========>" << endl;
+    thread t7(printHello_lock_guard, 5, 4);
+    thread t8([](int count, int thread_id){
+        for(int i=0;i<count;i++){
+            lock_guard<mutex> guard(mtx); // 加锁
+            cout<<"Thread_id "<< thread_id << ": Hello World(lambda)! "<< i << endl;
+        }
+    }, 10, 5);
+
+    t7.join();
+    t8.join();
+
+    this_thread::sleep_for(chrono::seconds(3)); // 主线程休眠3秒，等待全部线程执行完毕
 
     return 0;
 }
