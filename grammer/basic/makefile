@@ -7,9 +7,24 @@ hello_world.o: hello_world.cpp
 hello_world: hello_world.o
 	g++ -o hello_world hello_world.o -std=c++11
 
+gdb: hello_world
+	g++ -g -gdwarf-4 hello_world.cpp -o hello_world -std=c++11
+	gdb ./hello_world
+
 run: hello_world
 	./hello_world
 
 clean:
-	rm -r *.o
-	rm -r hello_world
+	@if [ -e *.o ]; then \
+		echo "Removing object files..."; \
+		rm -r *.o; \
+	fi
+
+	@if [ -e hello_world ]; then \
+		echo "Removing executable..."; \
+		rm -r hello_world; \
+	fi
+	@if [ -e ./*.dSYM ]; then \
+		echo "Removing debug symbols..."; \
+		rm -rf ./*.dSYM; \
+	fi
