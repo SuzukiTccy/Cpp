@@ -7,7 +7,7 @@ extern int e;
 /*=======================debug help func========================*/
 void printsubtitle(string subtitle){
     string separator1 = "<=====";
-    string separator2 = "=====>";
+    string separator2 = "=====>\n";
     cout << separator1 + subtitle + separator2 << endl;
 };
 
@@ -201,7 +201,7 @@ int main(){
 
 /*=======================lambda expression========================*/
 
-    cout << "<=======================lambda expression=======================>" << endl;
+    cout << "\n<=======================lambda expression=======================>" << endl;
     // define an simple lambda expression
     auto basicLambda = [] { cout << "Hello, world!" << endl; };
     basicLambda();   // output：Hello, world!
@@ -225,14 +225,14 @@ int main(){
 
 
 /*=======================random numbers========================*/
-    cout << "<=======================random numbers=======================>" << endl;
+    cout << "\n<=======================random numbers=======================>" << endl;
     int get_rand(int a, int b), get_random(int a, int b);
     cout << get_rand(0, 100) << endl; // pesudo-random number
     cout << get_random(0, 100) << endl; // true-random number
 
 
 /*=======================array========================*/
-    cout << "<=======================array=======================>" << endl;
+    cout << "\n<=======================array=======================>" << endl;
     // 1-dimension array definition
     int array[10] = {1,2,3,4,5,6};
     auto print_array = [array]{
@@ -253,64 +253,77 @@ int main(){
 
     // array pointer
     int *arr;
-    arr = array;
+    arr = array; // the first address of array
     cout << "array[5] = " << "*(arr+5) = " << *(arr+5) << endl;  // 6
     cout << "array[5] = " << "*(array+5) = " << *(array+5) << endl;  // 6
-    int *pp0, *pp1;
-    int *ppp[2] = {pp0, pp1}; // 指针数组
+    int *array_pp0, *array_pp1;
+    int* ppp[2] = {array_pp0, array_pp1}; // 指针数组
 
     // type_char array address
     char name[] = {"Zara Ali"};
-    cout << name << endl; // output: Zara Ali
-    cout << &name << endl; // output: the first address of string
-    cout << (void *)&name[1] << endl; //由于&name[1]的类型是char*,直接输出会是字符串，
+    cout << "name = " << name << endl; // output: Zara Ali
+    cout << "&name = "  << &name << endl; // output: the first address of string
+    cout << "&name[1] = "  << &name[1] << endl; // output: ara Ali
+    cout << "(void *)&name[1] = "  << (void *)&name[1] << endl; //由于&name[1]的类型是char*,直接输出会是字符串，
                                       //所以需要强转成其他类型才能输出地址
-    cout << name[0] << endl; // Z
+    cout << "name[0] = "  << name[0] << endl; // Z
+
 
     // Pass the array to the function, array as the argument of function, 会改变数组的值
     void array_f1(int *array);
     void array_f2(int array[10]); // the size is known
     void array_f3(int array[]); // the size is unknown
 
-    int *getrandom(void); // make it clear to compiler that it is an empty argument list function
+    int *getrandom_array(void); // make it clear to compiler that it is an empty argument list function
     // int *p = new int(); // this dynamically allocates an integer-sized block of memory on the heap 
     //                     // and returns a pointer to the first byte of that block. 
                            // This causes a memory leak, as the previously allocated block of memory is no longer accessible and cannot be freed,
                            // because next line of code the p is overwritted by the first address of static array r[] returned by getrandom().
-    int *p = getrandom(); // first call the getrandom(), then assign its return value to the pointer p.
+    int *p = getrandom_array(); // first call the getrandom_array(), then assign its return value to the pointer p.
 
-    cout << "<=====*getrandom()=====>" << endl;
+    cout << "<=====*getrandom_array()=====>" << endl;
     for(int i = 0; i<10; i++){
         cout << "*(p+" << i << ") = " << *(p+i) << endl;
     }
 
     cout << endl;
-    cout << "<=====*returnarr()=====>" << endl;
-    int *returnarr(int a, int b, int SIZE); // int *p = new int[SIZE]
-    p = returnarr(0, 100, 10);
+    cout << "<=====*return_arr()=====>" << endl;
+    int *return_arr(int a, int b, int SIZE); // int *p = new int[SIZE]
+    p = return_arr(0, 100, 10);
     for(int i = 0; i < 10; i++){
         cout << "*(p+" << i << ") = " << *(p+1) << endl;
     }
 
-    delete p;
+    // delete p;
     p = nullptr;
 
 /*=======================string========================*/
     #include <string>  
-    cout << "<=======================string=======================>" << endl;
+    cout << "\n<=======================string=======================>" << endl;
     // end by the '\0'
     char r[5] = {'a', 'b', 'c', 'd', '\0'};
     char rr[] = "abcd";
 
-    // getline()
-    // string str;
-    // getline(cin, str);
-    // cout << "str[0] = " << str[0] << endl;
+    cout << "r = " << r << endl; // abcd
+    cout << "rr = " << rr << endl; // abcd
+    cout << "sizeof(r) = " << sizeof(r) << endl; // 5
+    cout << "sizeof(rr) = " << sizeof(rr) << endl; // 5
+    cout << "strlen(r) = " << strlen(r) << endl; // 4
+    cout << "strlen(rr) = " << strlen(rr) << endl; // 4
 
-    // cin.getline()
+
+
+    // string str;
+    // cout << "Please input a string: ";
+    // getline(cin, str);
+    // cout << "str[0] = " << str[0] << endl; // the first char of str
+
     // char s[20];
-    // cin.getline(s, 20);
+    // cout << "Please input a string: ";
+    // cin.getline(s, 10); // 只读取前9个字符，会自动在末尾添加'\0'
     // cout << "s = " << s << endl;
+    // cout << "sizeof(s) = " << sizeof(s) << endl; // 20
+    // cout << "strlen(s) = " << strlen(s) << endl; // 9
 
     // cin.get(), used to digest the Enter key
     // cin.get();
@@ -327,7 +340,7 @@ int main(){
     // NULL pointer
     printsubtitle("NULL pointer");
     int *pp = nullptr;
-    cout << "pp = " << pp << endl;
+    cout << "pp = " << pp << endl; // pp = 0x0
 
     // use pointer as array, can create a dynamic array, but no suggestion
     cout << endl << endl;
@@ -366,8 +379,8 @@ int main(){
     printsubtitle("char pointer array");
     const char *ptrst[3] = {"abc", "cde", "efg"}; // 字符串常量数组，每个元素都是一个指向字符的指针，指向一个字符串常量
     for(int i = 0; i < 3; ++i){
-        cout << "the value of ptrst[i] = " << ptrst[i] << endl; 
-        cout << "the first value of ptrst[" << i << "] = " << *ptrst[i] << endl;
+        cout << "the value of ptrst[i] = " << ptrst[i] << endl; // the value of ptrst[0] = abc
+        cout << "the first value of ptrst[" << i << "] = " << *ptrst[i] << endl; // the first value of ptrst[0] = a
         cout << "*(ptrst[i] + 1) = " << *(ptrst[i] + 1) << endl;
     }
 
@@ -746,9 +759,10 @@ void lambda_exp()
     // 多次调用会发现x的值在变化
     
     cout << "add_x(10) = " << add_x(10) << endl;  // 21
-    cout << "add_x(10) = " << add_x(10) << endl;  // 20
+    cout << "add_x(10) = " << add_x(10) << endl;  // 22
     cout << "multiply_x(10) = " << multiply_x(10) << endl; // 150
     cout << "x = " << x << endl; // 15
+
 };
 
 
@@ -826,7 +840,7 @@ int get_random(int a, int b){
 };
 
 
-int *getrandom(void){
+int *getrandom_array(void){
     static int r[10];
     srand( (unsigned)time(NULL) ); // time(NULL) 返回time_t类型, 通常是长整型
     for(int i = 0; i<10; i++){     // srand需要传入一个unsigned类型的参数 
@@ -835,7 +849,7 @@ int *getrandom(void){
     return r;
 };
 
-int *returnarr(int a, int b, int SIZE){
+int *return_arr(int a, int b, int SIZE){
     int *r = new int[SIZE];
     srand( (unsigned)time(NULL) );
     for(int i = 0; i < SIZE; i++){
