@@ -4,6 +4,18 @@ using namespace std;
 
 extern int e;
 
+/*=======================debug help func========================*/
+void printsubtitle(string subtitle){
+    string separator1 = "<=====";
+    string separator2 = "=====>";
+    cout << separator1 + subtitle + separator2 << endl;
+};
+
+void pause(){
+    cout << "Press any key to continue...";
+    cin.get();
+};
+
 /*=======================enumeration========================*/
 enum COLOR{
     red,
@@ -39,29 +51,55 @@ void enumeration(){
 /*=======================#define, typedef, using========================*/
 #define CR COLOR
 #undef CR // Undefine the macro
-typedef COLOR color;
+typedef COLOR color; // 用于定义已有类型的别名，常用于复杂结构体声明时的简化
 using color = COLOR; // firstly
 
-
+/*
+typedef struct example {
+} e;
+*/
 
 /*=======================global and static========================*/
 int count = 1;
 int fun()
 {
-    static int scount = 10; // 在第一次进入这个函数的时候，变量 scount 被初始化为 10 并接着自减 1，以后每次进入该函数，count 的值是上一次函数运行之后的值
+    static int scount = 10; // 在第一次进入这个函数的时候，变量 scount 被初始化为 10 并接着自减 1，
+                            // 以后每次进入该函数，count 的值是上一次函数运行之后的值
     return scount--;        // 就不会被再次初始化了，仅进行自减 1 的操作；在 static 发明前，要达到同样的功能，则只能使用全局变量
 };
 
-static int ccount; //声明了一个只能在当前文件访问的全局变量
-static void ff(); //声明了一个只能在当前文件访问的函数（内部函数）
+static int ccount; // 声明了一个只能在当前文件访问的全局变量
+static void ff(); // 声明了一个只能在当前文件访问的函数（内部函数）
 
 void ff(){}
 
-void printsubtitle(string subtitle){
-    string separator1 = "<=====";
-    string separator2 = "=====>";
-    cout << separator1 + subtitle + separator2 << endl;
+void printcolor(color clr = red, string str="hello"){
+    string head = "";
+    string tail = "";
+    string display = str;
+    switch(clr){
+        case red:{
+            head="\033[31m";
+            tail="\033[0m";
+            display=head+str+tail;
+            break;
+        }
+        case green:{
+            head="\033[32m";
+            tail="\033[0m";
+            display=head+str+tail;
+            break;
+        }
+        case blue:{
+            head="\033[34m";
+            tail="\033[0m";
+            display=head+str+tail;
+            break;
+        }
+    }
+    cout << display << endl;
 };
+
 
 int main(){
     void printsubtitle(string subtitle);
@@ -100,33 +138,37 @@ int main(){
                      // then the constructor must be called explicitly
 
 
-/*=======================C++ operator, %和&========================*/
-    cout << "<=======================C++ operator, %和&=======================>" << endl;
-    int a,b,c;
+/*=======================C++ operator, %, &, <<, >>========================*/
+    cout << "\n<=======================C++ operator, %和&=======================>" << endl;
+    int a,b,c,aop;
     a=53;
-    b=a%8;
-    c=a&7;
-    cout << "b=" << b << endl;
-    cout << "c=" << c << endl;
-    cout << "b is equal with c" <<endl;
+    b=a%8; // 53%8=5
+    c=a&7; // 53&7=5
+    aop=4;
+    cout << "b=" << b << endl; // 53%8=5
+    cout << "c=" << c << endl; // 53&7=5
+    cout << "b is equal with c\n" << endl;
     cout << "%2 is equal with &1, %4 is equal with &3, %32 is equal with &31, and so on" << endl;
-    cout << "There is a two- to three-fold efficiency gain" << endl;
+    cout << "There is a two- to three-fold efficiency gain\n" << endl;
     cout << "12^12 = " << (12 ^ 12) << endl; // ^can be used to compare two number
+
+    cout << "aop << 1 = " << (aop << 1) << endl; // << can be used to move the bits of a number
+    cout << "aop >> 1 = " << (aop >> 1) << endl; // >> can be used to move the bits of a number
 
 
 /*=======================loop========================*/
-    cout << "<=======================for loop=======================>" << endl;
+    cout << "\n<=======================for loop=======================>" << endl;
     for(int i = 0; i <= 10; i++){
         cout << "i = " << i << endl;
     }
 
-    cout << "<========for loop based on the range========>" << endl;
+    cout << "\n<========for loop based on the range========>" << endl;
     int my_array[5] = {1,3,5,7,9};
-    for(int &i : my_array){
+    for(const int &i : my_array){
         cout << "i = " << i << endl;
     }
 
-    cout << "<========while loop========>" << endl;
+    cout << "\n<========while loop========>" << endl;
     int i = 0;
     while(i < 10){
         cout << "i = " << i << endl;
@@ -135,25 +177,26 @@ int main(){
 
 
 /*=======================switch========================*/
-    cout << "<=======================switch=======================>" << endl;
+    cout << "\n<=======================switch=======================>" << endl;
     color cl=red;
-    switch(c){
+    switch(cl){
         case 0:
-            cout << "c=red" << endl;
+            cout << "cl=red" << endl;
             break;
         case 5:
-            cout << "c=green" << endl;
+            cout << "cl=green" << endl;
             break;
         case 6:
-            cout << "c=blue" << endl;
+            cout << "cl=blue" << endl;
             break;
         default:
-            cout << "c is other color" << endl;
+            cout << "cl is other color" << endl;
     }
 
-    void printcolor(string color="red", string str="hello");
-    printcolor("red", "helloworld!");
-    printcolor("green", "helloworld!");
+    void printcolor(color clr, string str);
+    printcolor(cl, "helloworld!");
+    printcolor(green, "helloworld!");
+    printcolor(blue, "helloworld!");
 
 
 /*=======================lambda expression========================*/
@@ -763,32 +806,7 @@ void lambda_exp4(){
 };
 
 
-void printcolor(string color, string str){
-    int clr;
-    string head;
-    string tail;
-    string display;
-    if(color=="red") clr=1;
-    if(color=="green") clr=2;
-    switch(clr){
-        case 1:{
-            head="\033[31m";
-            tail="\033[0m";
-            display=head+str+tail;
-            break;
-        }
-        case 2:{
-            head="\033[32m";
-            tail="\033[0m";
-            display=head+str+tail;
-            break;
-        }
-        default:{
-            display=str;
-        }
-    }
-    cout << display << endl;
-};
+
 
 
 #include<cstdlib>

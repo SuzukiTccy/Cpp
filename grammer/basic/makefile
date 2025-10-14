@@ -8,7 +8,7 @@ hello_world: hello_world.o
 	g++ -o hello_world hello_world.o -std=c++11
 
 gdb: hello_world
-	g++ -g -gdwarf-4 hello_world.cpp -o hello_world -std=c++11
+	g++ -g -gdwarf-5 hello_world.cpp -o hello_world -std=c++11
 	gdb ./hello_world
 
 run: hello_world
