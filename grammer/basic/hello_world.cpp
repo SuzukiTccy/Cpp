@@ -393,33 +393,43 @@ int main(){
         cout << "*(ptrst[i] + 1) = " << *(ptrst[i] + 1) << endl; // the first value of *(ptrst[0]+1) = b
     }
 
-    // const int *p == int const *p, define a pointer p to an integer value that cannot be modified through the pointer.
+    // const int *p == int const *p, 
+    // define a pointer p to an integer value that cannot be modified through the pointer.
+    // The pointer itself can be changed to point to another integer
+    // 理解*运算符只修饰它最近的右边变量就好
+    // 在这个例子中，*修饰的是point_to_const，所以point_to_const是一个指向常量整数的指针，而不是一个常量指针
+    // point_to_const是可以变的，但是它指向的整数值不能通过point_to_const来修改
     cout << endl << endl;
     printsubtitle("const int *p and int const *p");
-    int sseee = 1;
-    const int *pc1 = &sseee;
-    int const *pc2;
-    int ssee2 = 2;
-    pc1 = &ssee2;
-    // *pc1 = 2; is illegal, because the pointer just can point another address, but can not change the int which it point.
-    cout << "*pc1 = " << *pc1 << endl; // 2
-    cout << "pc1 = " << pc1 << endl;
+    int i1 = 1, i2 = 2;
+    const int *point_to_const = &i1;
+    cout << "*point_to_const = " << *point_to_const << endl; // 1
+
+    point_to_const = &i2;
+    // *point_to_const = 2; is illegal, because the pointer just can point another address, 
+    //           but can not change the int which it point.
+    cout << "*point_to_const = " << *point_to_const << endl; // 2
+    cout << "point_to_const = " << point_to_const << endl; // the address of i2
 
 
-    // int * const p, the pointer address can't change, but the int it point to can change, and must be initialized
+    // int * const p, the pointer address can't change, 
+    // but the int it point to can change, and must be initialized
+    // 在这个例子中，*修饰的是const const_point，所以const_point是一个常量指针，而不是一个指向常量整数的指针
+    // const_point指向的地址是不能变的，但是这个地址上的整数值是可以通过const_point来修改的
     cout << endl << endl;
     printsubtitle("int * const p");
-    int constp = 1;
-    int * const cp = &constp;
-    constp = 2;
-    cout << "*cp = " << *cp << endl; // 2
-    cout << "cp = " << cp << endl;
-    *cp = 3; // modifies the value of constp to 3
-    cout << "constp = " << constp << endl;
-    cout << "*cp = " << *cp << endl; // 3
-    cout << "cp = " << cp << endl; // the address of cp is not change
+    int i3 = 1;
+    int * const const_point = &i3;
+    i3 = 2;
+    cout << "*const_point = " << *const_point << endl; // 2
+    cout << "const_point = " << const_point << endl; // the address of const_point
 
-    // cp = &ssee2; Error, cannot change the value of cp
+    *const_point = 3; // modifies the value of i3 to 3 through the const_point
+    cout << "i3 = " << i3 << endl; // i3 = 3
+    cout << "*const_point = " << *const_point << endl; // 3
+    cout << "const_point = " << const_point << endl; // the address of const_point is not change
+
+    // const_point = &i2; Error, cannot change the value of const_point
 
 
     // array pointer, can point to a mult-dimension
