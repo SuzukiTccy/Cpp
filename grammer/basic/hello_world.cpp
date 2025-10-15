@@ -311,22 +311,30 @@ int main(){
     cout << "strlen(r) = " << strlen(r) << endl; // 4
     cout << "strlen(rr) = " << strlen(rr) << endl; // 4
 
+    cout << endl;
+
+    #if 0
+        string str;
+        cout << "Please input a string: ";
+        getline(cin, str);
+        cout << "str[0] = " << str[0] << endl; // the first char of str
+        cin.get();
+    #endif
+    
 
 
-    // string str;
-    // cout << "Please input a string: ";
-    // getline(cin, str);
-    // cout << "str[0] = " << str[0] << endl; // the first char of str
+    #if 0
+    char s[20];
+    cout << "Please input a string: ";
+    cin.getline(s, 10); // 只读取前9个字符，会自动在末尾添加'\0'
+    cout << "s = " << s << endl;
+    cout << "sizeof(s) = " << sizeof(s) << endl; // 20
+    cout << "strlen(s) = " << strlen(s) << endl; // 9
 
-    // char s[20];
-    // cout << "Please input a string: ";
-    // cin.getline(s, 10); // 只读取前9个字符，会自动在末尾添加'\0'
-    // cout << "s = " << s << endl;
-    // cout << "sizeof(s) = " << sizeof(s) << endl; // 20
-    // cout << "strlen(s) = " << strlen(s) << endl; // 9
+    cin.get();
+    #endif
 
-    // cin.get(), used to digest the Enter key
-    // cin.get();
+    // string literal
 
     // raw string
     cout << u8R"((UTF-8) not to explain Escape symbol \n)" << endl;
@@ -345,7 +353,8 @@ int main(){
     // use pointer as array, can create a dynamic array, but no suggestion
     cout << endl << endl;
     int *t = new int();
-    *t = 1;*(t+1)=2; // The +1 is attempting to access memory that is not allocated for t, which can result in undefined behavior.
+    *t = 1;
+    *(t+1)=2; // The +1 is attempting to access memory that is not allocated for t, which can result in undefined behavior.
     cout << "t[0] = " << t[0] << endl;
     cout << "t[1] = " << t[1] << endl;
     cout << "t[-1] = " << t[-1] << endl; // overflow the array can run, but is illegal
@@ -380,8 +389,8 @@ int main(){
     const char *ptrst[3] = {"abc", "cde", "efg"}; // 字符串常量数组，每个元素都是一个指向字符的指针，指向一个字符串常量
     for(int i = 0; i < 3; ++i){
         cout << "the value of ptrst[i] = " << ptrst[i] << endl; // the value of ptrst[0] = abc
-        cout << "the first value of ptrst[" << i << "] = " << *ptrst[i] << endl; // the first value of ptrst[0] = a
-        cout << "*(ptrst[i] + 1) = " << *(ptrst[i] + 1) << endl;
+        cout << "the first value of ptrst[" << i << "] = " << *ptrst[i] << endl; // the first value of *ptrst[0] = a
+        cout << "*(ptrst[i] + 1) = " << *(ptrst[i] + 1) << endl; // the first value of *(ptrst[0]+1) = b
     }
 
     // const int *p == int const *p, define a pointer p to an integer value that cannot be modified through the pointer.
