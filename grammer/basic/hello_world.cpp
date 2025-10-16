@@ -454,12 +454,12 @@ int main(){
 
     cout << "*array2 = " << *array2 << endl; // *array2 is the pointer to the first row of array2
                                              // 数值上等于数组的第一行的首地址
-                                             // 实际意义是 第一行数组的数组名，类型是int[2]
+                                             // 实际意义是 第一行数组的数组名，即array2[0], 类型是int[2]
     cout << " = ";
-    cout << "array2[0] = " << array2[0]; // array2[0] is a pointer to the first element of array2[0]
-                                         // 数值上等于数组的第一行的首地址
-                                         // 实际意义是 第一行数组的数组名，类型是int[2]
-                                         // 但在表达式中，退化为指向该数组首元素的指针，即 &array2[0][0]，类型是int*
+    cout << "array2[0] = " << array2[0] << endl; // array2[0] is a pointer to the first element of array2[0]
+                                                 // 数值上等于数组的第一行的首地址
+                                                 // 实际意义是 第一行数组的数组名，类型是int[2]
+                                                 // 但在表达式中，退化为指向该数组首元素的指针，即 &array2[0][0]，类型是int*
     
     cout << "&array[0][0] = " << &array2[0][0] << endl; // 类型是int*
 
@@ -493,7 +493,7 @@ int main(){
 
     printsubtitle("array pointer");
     int (*ap)[2] = array2; // ap 是一个指向 包含2个整数 的数组 的指针, 即ap是一个指向数组的指针，即数组指针
-                           // 这个数组的每个值，表示的是 指向数组array2的每一行 的指针, 因为指针可以用整型变量表示
+                           // 这个数组的每个值，表示的是 array2每一行的数组名, 因为数组名可以代表地址, 可以用整型变量表示
                            // 如前所述， array2 本质上是一个 包含两个整数数组 的数组
                            // 所以array2可以赋值给ap
     for(int i = 0; i < 2; ++i){
@@ -505,7 +505,7 @@ int main(){
 
         // 虽然数值上 array2[i] 和 &array2[i][0] 和上面的ap + i是相等的，但是意义不同
         // ap + i 和 &array2[i] 是指向第i行数组的指针，类型是 int(*)[2]
-        // array2[i]是int[2], &array2[i][0]是int*
+        // array2[i]是第i行的数组名，类型是int[2], &array2[i][0]是int*
         cout << "array2[" << i << "] = " << array2[i] << endl;
         cout << "&array2[" << i << "][0] = " << &array2[i][0] << endl;
         cout << "虽然和上面数值相同，但是意义是不同的，请注意" << endl;
@@ -514,7 +514,6 @@ int main(){
 
         // *(ap + i) 是对 ap + i 进行解引用操作
         // 解引用得到的是 ap + i 指向的内容，即 array2[i], 类型为 int[2]
-        // array2[i] 本身是一个数组名，在表达式中会退化为指向该数组首元素的指针，即 &array2[i][0]
         // 即*(ap + i) = *(&array2[i]) = array2[i], 类型为 int[2]
         cout << "*(ap + " << i << ") = " << *(ap + i);
         cout << " = ";
@@ -523,6 +522,8 @@ int main(){
         cout << "array2[" << i << "] = " << array2[i] << endl;
         cout << endl;
         
+        // **(ap+i) = *(*(ap+i)) = *array2[i]
+        // 而array2[i]会退化成&array2[i][0], 所以
         // **(ap+i) = *(*(ap+i)) = *array2[i] = *(&array2[i][0]) = array2[i][0], 类型是 int
         cout << "**(ap + " << i << ") = " << **(ap + i);
         cout << " = ";
