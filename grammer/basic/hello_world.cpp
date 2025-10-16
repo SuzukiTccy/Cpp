@@ -540,10 +540,11 @@ int main(){
             cout << "*(array2[" << i << "] + " << j << ")";
             cout << " = ";
             cout << "array2[" << i << "][" << j << "] = " << array2[i][j];
-
-            cout << endl;
         }
     }
+
+    cout << endl;
+
 
     // multilevel pointer
     cout << endl << endl;
@@ -551,13 +552,14 @@ int main(){
     int var = 100;
     int *mptr = &var; // mptr = &var
     int **pmptr = &mptr; // pmptr = &mptr
-    cout << "&var = " << &var << endl;
-    cout << "mptr = " << mptr << endl;
-    cout << "*pmptr = " << *pmptr << endl; // *pmptr = mptr = &var
+    cout << "mptr = " << mptr << " = &var = " << &var << endl;
+    cout << "pmptr = " << pmptr << " = &mptr = " << &mptr << endl;
     cout << endl;
-    cout << "&mptr = " << &mptr << endl;
-    cout << "pmptr = " << pmptr << endl;
-    cout << "**pmptr = " << **pmptr << endl; // **pmptr = *mptr = var
+    cout << "*mptr = " << *mptr << " = var = " << var << endl;
+    cout << "*pmptr = " << *pmptr << " = mptr = " << mptr << endl;
+    cout << endl;
+    cout << "**pmptr = " << **pmptr << "*(*mptr) = " << *(*pmptr) << \
+    " = *mptr = " << *mptr << " = var = " << var << endl;
 
     cout << endl;
     **pmptr = 120;
@@ -565,6 +567,7 @@ int main(){
     int getp(int *);
     getp(&var);
 
+    
     //-------null pointer-------//
     int *p4 = nullptr;
     //printf("%d",*p4); //Error，should judge whether it is an nullptr before use a pointor
@@ -850,8 +853,8 @@ int getp(int *p){
     cout << "&p = " << &p << endl;  // why it can work? because when use the getp(int *), 
                                     // then a pointer will be create and point to the address which is &var,
                                     // the &p actually is the address of pointer above
-                                    // 也就是说，传指针实际上还是会复制
-
+                                    // 也就是说，传指针实际上还是会创建一个新的指针变量（传引用就不会）
+                                    // 只不过这个指针变量存储的是传入指针的地址   
     return 0;
 }
 
