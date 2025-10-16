@@ -81,6 +81,7 @@ void getBoxLenFriend(const Box& b){
     cout << "This is the friend function of class Box:" << endl;
     cout << "the protected variable of b length = " << b.length << endl;
 }
+
 class FriendOfBox{
     public:
     void getBoxLen(const Box& b){
@@ -117,14 +118,18 @@ void staticMemberTest(){
 
 
 class smallBox: virtual public Box{
+    // 虚继承，用于解决多继承中，父类成员变量被多次继承的问题（钻石继承）
+    // 虚继承是指，在派生类中，通过virtual关键字声明继承的基类，使得派生类和基类共享同一个基类对象。
     private:
         double smallLength;
         double smallBreath;
+    protected:
+        double length;
     public:
         void setsmallLength(double l){ length = l; }
         // constructor can't be inherited
-        smallBox(double l, double b, double h, int len, double sb): 
-        Box(l, b, h, len), smallLength(1.33), smallBreath(sb)
+        smallBox(double l, double b, double h, int len, double sb, double sblength = 1.44): 
+        Box(l, b, h, len), smallLength(1.33), smallBreath(sb), length(sblength)
         {
             cout << "The object is be created!" << endl;
         }
@@ -139,7 +144,7 @@ double getSmallBoxVolume(smallBox &b){
 }
 
 void classSmallBoxTest(){
-    smallBox box1(3.00, 4.00, 5.00, 2, 6.00);
+    smallBox box1(3.00, 4.00, 5.00, 2, 6.00, 1.55);
     box1.setsmallLength(1.00);
     box1.setbreadth(2.00);
     box1.setheight(3.00);
@@ -148,10 +153,13 @@ void classSmallBoxTest(){
     cout << "volume = " << volume << endl;
     cout << "box1.getptr() = " << box1.getptr() << endl; // child class can call the parent class non-private member function
     cout << "box1.Box::getlength() = " << box1.Box::getlength() << endl; // can use :: to access the parent member, 
-}                                                                        // when the parent class has the same name members to the child
+                                                                         // when the parent class has the same name members to the child
+                                                                         // the output is the parent class protected member 'length'
 
+    cout << "box1.getlength() = " << box1.getlength() << endl; // the output is also the parent class protected member 'length'
+                                                               // because the child class dont rewrite the getlength() function
 
-
+}                                                                        
 
 
 
@@ -193,8 +201,7 @@ class tinyBox : public smallBox, public tiny{ // multiple inherit, unrecommend
 
 void inheritTest(){
     tinyBox tb(3.00, 4.00, 5.00, 2, 6.00, 0.1, 0.2, 0.3);
-    cout << "tb.getlength() = " << tb.getlength() << endl;
-
+    cout << "tb.getlength() = " << tb.getlength() << endl; // 实际上调用的是最上层基类Box的getlength()函数
 }
 
 
