@@ -226,9 +226,9 @@ int main(){
 
 /*=======================random numbers========================*/
     cout << "\n<=======================random numbers=======================>" << endl;
-    int get_rand(int a, int b), get_random(int a, int b);
-    cout << get_rand(0, 100) << endl; // pesudo-random number
-    cout << get_random(0, 100) << endl; // true-random number
+    int get_rand_in_a_b(int a, int b), get_random_in_a_b(int a, int b);
+    cout << "get_rand_in_a_b(0, 100) = " << get_rand_in_a_b(0, 100) << endl; // pesudo-random number
+    cout << "get_random_in_a_b(0, 100) = " << get_random_in_a_b(0, 100) << endl; // true-random number
 
 
 /*=======================array========================*/
@@ -730,15 +730,13 @@ void initstruct(void){
 
     }t1, t2, t3;
 
-    t1 = {1, "C", 'c'};
-    t2 = test(2, "C#", '#');
-    t3.init(3, "C++", '+');
+    t1 = {1, "C", 'c'}; // 隐式初始化
+    t2 = test(2, "C#", '#'); // 显式初始化
+    t3.init(3, "C++", '+'); // 自定义初始化
 
     cout << "t1: " << t1.data << " " << t1.str << " " << t1.c << endl;
     cout << "t2: " << t2.data << " " << t2.str << " " << t2.c << endl;
     cout << "t3: " << t3.data << " " << t3.str << " " << t3.c << endl;
-
-
 
 }
 
@@ -796,10 +794,8 @@ void getRTime(){
 
     start_t = clock();
     cout << "循环启动时间: " << start_t << endl;
+    for(int i = 0; i < 1000000; ++i){}
 
-    for(int i = 0; i < 1000000; ++i){
-
-    }
     end_t = clock();
     cout << "循环结束时间: " << end_t << endl;
 
@@ -940,13 +936,13 @@ void lambda_exp4(){
 #include<cstdlib>
 #include<ctime>
 #include<random>
-int get_rand(int a, int b){
+int get_rand_in_a_b(int a, int b){
     srand( (unsigned)time(NULL) );
     int r = (double)rand() / RAND_MAX * (b - a) + a;
     return r;
 };
 
-int get_random(int a, int b){
+int get_random_in_a_b(int a, int b){
     random_device rd; // non-deterministic generator
     mt19937 gen(rd()); // to seed mersenne twister.
     uniform_int_distribution<> dist(a,b); // distribute results between a and b inclusive.
