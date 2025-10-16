@@ -567,7 +567,7 @@ int main(){
     int getp(int *);
     getp(&var);
 
-    
+
     //-------null pointer-------//
     int *p4 = nullptr;
     //printf("%d",*p4); //Error，should judge whether it is an nullptr before use a pointor
@@ -590,13 +590,12 @@ int main(){
     p6 = new int(7); // The block of memory that p6 originally pointed to has not yet been freed, and p6 points elsewhere.
                      // Originally, the new memory cannot be accessed and cannot be deleted, causing a memory leak.
 
-    int *p7 = new int[10];
+    int *p7 = new int[10]; // 优先使用vector，避免内存泄漏和越界，或者用智能指针
     delete [] p7; // new[] and delete[]
 
-
-    // *p1 = 0 indicate the pointer don't point any object, but can't assign int() to the pointer
     int aa = 0;
     int *p12 = 0;   //right
+    p12 = &aa; //right
     // int *p12 = aa;   //error
 
 
@@ -607,18 +606,20 @@ int main(){
     // function pointer
     cout << endl;
     printsubtitle("function pointer");
-    int (*fp)(int);
-    int ff(int);
-    fp = ff;
+    int (*fp)(int); // fp 是一个函数指针，类型是 int (*)(int), 即指向返回值为int，参数为int的函数的指针
+    int ff(int); // ff 是一个函数，类型是 int (int), 即返回值为int，参数为int的函数
+    fp = ff; // fp 指向 ff
+    // C++标准规定，函数指针既可以像函数一样使用，也可以解引用后使用。两种方式是等价的
     cout << "(*fp)(5) = " << (*fp)(5) << endl;
-
-    typedef int (*fp1)(int);
+    cout << "fp(5) = " << fp(5) << endl;
+    
+    typedef int (*fp1)(int); // 用typedef 给函数指针起别名，所以fp1是函数的别名，可以直接用fp1来调用函数
     fp1 _fp = ff;
     cout << "_fp(5) = " << _fp(5) << endl;
 
-
-    const char *test(void);
-    const char * (*rrr)(void) = test;
+    const char * test(void); // 函数test, 返回的类型为const char *
+    const char * (*rrr)(void) = test; // rrr 是一个函数指针，类型是 const char * (*)(void), 
+                                      // 即指向返回值为const char *，参数为void的函数的指针
     cout << "rrr() = " << rrr() << endl;
 
 
