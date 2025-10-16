@@ -1,8 +1,12 @@
 #include<iostream>
 using namespace std;
 
-int main()
-{
+int test_cmake() 
+{   // 不能用main()，因为在根目录下已经有一个main()函数
+    // 在 C/C++ 程序中，main 函数是程序的入口点，每个程序只能有一个 main 函数。
+    // 当 CMake 编译这两个文件时，它们各自都包含了 main 函数的定义，
+    // 导致链接器在最终链接时发现了重复的符号。
+
     // 1.创建对象
     // 2.调用对象方法
     // 3.访问对象属性
