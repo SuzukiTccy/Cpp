@@ -38,7 +38,7 @@ class Box{
         }
 
         Box(const Box &bbox){ // if the class have the pointer variables, u must to difine a copy constructor
-            // cout << R"((Call the copy constructor))" << endl;
+            cout << R"((Call the copy constructor))" << endl;
             ptr = new int;
             *ptr = *bbox.ptr;
 
@@ -61,9 +61,7 @@ class Box{
 
 int Box::objectcount = 0;
 
-double getBoxVolume(Box &b){  // when call getBoxVolume, it will call the copy constructor implicitly to create a temp object,
-                             // and when haved called this function, it will call the destructor, 
-                             // cause it need to delete the temp object
+double getBoxVolume(Box &b){
     double v = b.getVolume();
     return v;
 }
