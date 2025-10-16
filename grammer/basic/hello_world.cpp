@@ -829,7 +829,8 @@ void func2(const Demo *d){ // use const modify formal parameters to limit functi
         cout << "d -> count = " << d->count << endl;
 }
 
-void func3(const Demo &d){  // use reference or pointer can improve efficiency, because it will not to create copies,
+void func3(const Demo &d){  // use reference or pointer can improve efficiency
+                            // because it will not to create copies,
                             // while transfer value will
     cout << "d.count = " << d.count << endl;
 }
