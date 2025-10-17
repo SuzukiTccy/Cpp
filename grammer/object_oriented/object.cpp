@@ -320,21 +320,22 @@ class Shape{
         int *ptr;
     
     public:
-        virtual double area() = 0;
+        virtual double area() = 0; // 纯虚函数，没有函数体，必须在派生类中实现
         // In C++, once you have a pure virtual member function, 
         // your class becomes an abstract class and you cannot create any objects from it.
 
         void setwidth(double w){ width = w; }
         void setheight(double h){ height = h; }
-        double getheight(){ return height; }
-        double getwidth(){ return width; }
+        double getheight() const { return height; }
+        double getwidth() const { return width; }
         int getlen(){ return *ptr; }
-        Shape(): width(), height(), ptr(){ ptr = new int; }
+        Shape(): width(), height(), ptr(nullptr){ ptr = new int; } // 如果不写ptr()，指针成员将保持未初始化状态
         Shape(double w, double h, int len): width(w), height(h){
             ptr = new int;
             *ptr = len;
         }
-        Shape(const Shape& s){
+        Shape(const Shape& s){ // copy constructor
+            cout << "Call the Shape copy constructor" << endl;
             ptr = new int;
             *ptr = *(s.ptr);
             
@@ -355,7 +356,8 @@ class Rectangle : public Shape{
     public:
         Rectangle(): Shape(){}
         Rectangle(double w, double h, int len): Shape(w,h,len){}
-        Rectangle(const Rectangle& s){
+        Rectangle(const Rectangle& s){ // copy constructor
+            cout << "Call the Rectangle copy constructor" << endl;
             ptr = new int;
             *ptr = *(s.ptr);
             
@@ -368,17 +370,27 @@ class Rectangle : public Shape{
             cout << R"((delete the Rectangle object! ))" << endl;
         }
 
+        // virtual overloading, and it's not pure
+        double area(){
+            return width * height;
+        }
+
         Rectangle operator+(const Rectangle& s){
+            /*
+            在Triangle类的成员函数中，可以访问: 
+                当前对象(this)的protected成员
+                同类型其他对象的protected成员
+            所以可以直接用s.width和s.height来访问另一个Triangle对象的protected成员
+            这是因为protected成员在同一个类
+
+            注意: 访问权限是相较于“类”而不是“对象”来说的, 所以protected可以被“同类”的其他对象访问
+            */
             Rectangle sss;
-            sss.width = this->width + s.width;
+            sss.width = this->width + s.width; 
             sss.height = this->height + s.height;
             *(sss.ptr) = *(this->ptr) + *(s.ptr);
 
             return sss;
-        }
-        // virtual overloading, and it's not pure
-        double area(){
-            return width * height;
         }
 };
 
@@ -387,7 +399,8 @@ class Triangle : public Shape{
     public:
         Triangle(): Shape(){}
         Triangle(double w, double h, int len): Shape(w,h,len){}
-        Triangle(const Triangle& s){
+        Triangle(const Triangle& s){ // copy constructor
+            cout << "Call the Triangle copy constructor" << endl;
             ptr = new int;
             *ptr = *(s.ptr);
             
@@ -399,6 +412,8 @@ class Triangle : public Shape{
             ptr = nullptr;
             cout << R"((delete the Triangle object! ))" << endl;
         }
+
+        // 子类通常需要重写操作符重载函数，以确保操作符在子类对象上表现出预期的行为
         Triangle operator+(const Triangle& s){
             Triangle sss;
             sss.width = this->width + s.width;
@@ -436,10 +451,11 @@ void polymorphismsTest(){
     cout << "ra.area() = " << ra.area() << endl;
     cout << "ta.area() = " << ta.area() << endl;
 
-    shape = &ra;  // virtual function is be used in the situation that using the parent pointer point to derived class
-    cout << "shape(ra)->area() = " << shape->area() << endl;
+    shape = &ra;  // virtual function is be used in the situation that 
+                  // using the parent pointer point to derived class
+    cout << "shape(ra)->area() = " << shape->area() << endl; // call the Rectangle area()
     shape = &ta;
-    cout << "shape(ta)->area() = " << shape->area() << endl;
+    cout << "shape(ta)->area() = " << shape->area() << endl; // call the Triangle area()
 
     finalClass fc;
     fc.area();
