@@ -202,6 +202,7 @@ class tinyBox : public smallBox, public tiny{ // multiple inherit, unrecommend
 void inheritTest(){
     tinyBox tb(3.00, 4.00, 5.00, 2, 6.00, 0.1, 0.2, 0.3);
     cout << "tb.getlength() = " << tb.getlength() << endl; // 实际上调用的是最上层基类Box的getlength()函数
+                                                           // 因为smallBox和tiny类都没有重写getlength()函数
 }
 
 
@@ -216,11 +217,14 @@ class OverLD{
         void setlen(int len){ *(this->len) = len; }
         void print(int a){ cout << "a = " << a << endl; }
         void print(double d){ cout << "d = " << d << endl; } // function overloading
-        int getlen(){ return *len; }
-        int getold(){ return old; }
-        OverLD(){ this->len = new int; } // non-parameter constructor
-                                         // since the class has pointer member,
-                                         // need to open up memory space
+        int getlen() const { return *len; } // 不能在const对象上调用非const成员函数
+        int getold() const { return old; } // 不能在const对象上调用非const成员函数
+        OverLD(){                // non-parameter constructor
+            cout << "call the non-parameter constructor" << endl;
+            this->len = new int; // since the class has pointer member,
+        }                        // need to open up memory space
+                                         
+                                         
         explicit OverLD(int a, int len): old(a)      
         {
             this->len = new int;
@@ -234,56 +238,69 @@ class OverLD{
             len = nullptr;
             cout << R"((delete the OverLD object! ))" << endl;
         }
-        OverLD(const OverLD& o){
+
+        OverLD(const OverLD& o){ // copy constructor
+            cout << "call the copy constructor" << endl;
             old = o.old;
             len = new int;
             *len = *(o.len);
-            cout << "call the copy constructor" << endl;
         }
 
         OverLD(OverLD && o): old(o.old), len(o.len){ // move constructor
-            o.len = nullptr;
             cout << "call the move constructor" << endl;
+            o.len = nullptr;
+        }
+
+        OverLD& operator=(const OverLD& other) noexcept{ // copy assignment operator
+            cout << "call the copy assignment operator" << endl;
+            if(this != &other){
+                delete this->len; // release the original memory
+                this->old = other.old;
+                this->len = new int;
+                *(this->len) = *(other.len);
+            }
+            return *this;
         }
 
         OverLD operator+(const OverLD& o){ // overloading operator as the member function
-            OverLD overld;
-            overld.old = this->old + o.old;
-            *(overld.len) = *(this->len) + *(o.len);
-            return overld;
+            cout << "call the member function which overloads the operator +" << endl;
+            OverLD operator_result;
+            operator_result.old = this->old + o.old;
+            *(operator_result.len) = *(this->len) + *(o.len);
+            return operator_result;
         }
-        friend OverLD operator+(OverLD& o, OverLD& ol); // declare friend function
-        friend OverLD operator+(OverLD& o, int num); // declare friend function
+        friend OverLD operator+(const OverLD& o, const OverLD& ol); // declare friend function
+        friend OverLD operator+(const OverLD& o, int num); // declare friend function
         int aaa;
-
 
 };
 
 
-OverLD operator+(OverLD& o, OverLD& ol){ // overloading operator as the non-member function
-    OverLD overld;
-    overld.setold(o.getold() + ol.getold());
-    overld.setlen(o.getlen() + ol.getlen());
+OverLD operator+(const OverLD& o, const OverLD& ol){ // overloading operator as the non-member function
+    cout << "call the friend function which overloads the operator +" << endl;
+    OverLD operator_result;
+    operator_result.setold(o.getold() + ol.getold());
+    operator_result.setlen(o.getlen() + ol.getlen());
     
-    return overld;
+    return operator_result;
 }
 
-OverLD operator+(OverLD& o, int num){ // operator overloading can overload
-    OverLD overld(o);
+OverLD operator+(const OverLD& o, int num){ // operator overloading can overload
+    OverLD overld(o); // use copy constructor to initialize overld
     overld.setold(overld.getold() + num);
     overld.setlen(overld.getlen() + num);
 
     return overld;
-
 }
 
 
 
 void overloadingTest(){
-    OverLD o1 = OverLD(1,2);
-    OverLD o2 = OverLD(3,4);
+    OverLD o1 = OverLD(1,2); // 显式调用构造函数
+    OverLD o2 = OverLD(3,4); // 显式调用构造函数
 
-    OverLD o3 = o1 + o2;
+    OverLD o3 = o1 + o2; // 调用重载的+运算符的成员函数
+    o3 = o3 + o1; // 调用重载的+运算符的成员函数, 主要是注意操作符=的重写
     OverLD o4 = o1 + 4;
 
     cout << "o3.getlen() = " << o3.getlen() << endl; // 6
