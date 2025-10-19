@@ -45,7 +45,7 @@ int main(){
 
 /*=======================signal Handle========================*/
     cout << "<===========signal Handle===========>" << endl;
-    // signalHandleTest();
+    signalHandleTest();
     cout << endl;
 
 

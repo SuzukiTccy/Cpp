@@ -19,7 +19,7 @@ void signalHandleTest(){
     while(++i){
         cout << "Go to sleep ..." << endl;
         sleep(1);
-        if (i == 3) raise(SIGINT);
+        if (i == 4) raise(SIGINT); // 抛出SIGINT信号
     }
 }
 
