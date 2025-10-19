@@ -10,7 +10,7 @@ inline T const& Max(T const& a, T const& b){
 }
 
 
-
+// 手写一个栈的类模板
 template <class T>
 class Stack{
     private:
@@ -18,21 +18,27 @@ class Stack{
     
     public:
         typedef int stackLengthType;
-        Stack(): elems(){}
+        Stack(): elems(){} // 无参数构造函数
+        
+        // 复制构造函数
         Stack(vector<T> const &v){
             elems = v;
         }
+
         void Push(T const& elem); // push into the stack
         void Pop(); // pop from the stack
         T Top() const;  // return the top element of stack
+
         bool empty() const{ // if stack is empty
             return elems.empty();
         }
+
         stackLengthType GetLength() const{ // why must declare 'const'?
                                            // because LengthMethod() use constant reference to Stack object
                                            // and it call the member function GetLength().
                                            // if having not 'const', the complier cannot guarantee that 
                                            // calling LengthMethod() will not change the constant reference to Stack object 
+                                           // 因为第74行有个const引用的Stack对象调用了GetLength()函数
             return elems.size();
         }
 };
@@ -92,12 +98,12 @@ void templateTest(){
         Stack<string> sStack(vector<string> {});
 
         iStack.Push(5);
-        cout << "iStack.Top() = " << iStack.Top() << endl;
+        cout << "iStack.Top() = " << iStack.Top() << endl; // output: 5
 
         sStack.Push("World!");
-        cout << "sStack.Top() = " << sStack.Top() << endl;
+        cout << "sStack.Top() = " << sStack.Top() << endl; // output: World!
 
-        cout << "The lenght of iStack is " << LengthMethod(iStack) << endl;
+        cout << "The lenght of iStack is " << LengthMethod(iStack) << endl; // output: 4
 
         iStack.Pop();
         sStack.Pop();
