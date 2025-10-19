@@ -5,11 +5,11 @@ using namespace std;
 
 void dynamicTest(){
 
-    cout << "------------2-dimension array :-------------" << endl;
+    cout << "------------2-dimension dynamic array :-------------" << endl;
     int **array = nullptr; // [3][4]
-    array = new int *[3];
+    array = new int *[3]; // (int*, int*, int*)
     for(int i = 0; i<3; ++i){
-        array[i] = new int [4];
+        array[i] = new int [4]; // array[i] is int*, allocate 4 int for each row
         for(int j=0; j<4; ++j){
             array[i][j] = i*j;
         }
@@ -31,7 +31,7 @@ void dynamicTest(){
     array = nullptr;
 
 
-    cout << "------------3-dimension array :-------------" << endl;
+    cout << "------------3-dimension dynamic array :-------------" << endl;
     int ***p = nullptr; //[3][4][5]
     p = new int **[3];
     int i,j,k;
