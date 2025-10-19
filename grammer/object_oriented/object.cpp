@@ -16,18 +16,13 @@ class Box{
     public:
         // static Member
         static int objectcount;
-        static int getObjectcount(){ return objectcount; }
+        static int getObjectcount(){ return objectcount; } // 静态函数作用：
+                                                           // 1. 可以在没有对象实例的情况下调用
+                                                           // 2. 只能访问静态成员变量和其他静态成员函数，不能访问非静态成员变量和非静态成员函数
 
+        // Constructor
+        Box(): length(0), breadth(0), height(0), ptr(nullptr) { ptr = new int; *ptr = 0; }
 
-        // Member function declaration and definition
-        void setlength(double l){ length = l; } // inline function
-        void setbreadth(double b){ breadth = b; }
-        void setheight(double h){ height = h; }
-        double getVolume(){
-            return length * breadth * height; 
-        }
-        int getptr(){ return *ptr; }
-        double getlength(){ return length; }
         Box(double l, double b, double h, int len): length(l), breadth(b), height(h)
         {
             ptr = new int;
@@ -47,6 +42,17 @@ class Box{
             height = bbox.height;
         }
 
+        // Member function declaration and definition
+        void setlength(double l){ length = l; } // inline function
+        void setbreadth(double b){ breadth = b; }
+        void setheight(double h){ height = h; }
+        double getVolume()const {
+            return length * breadth * height; 
+        }
+        int getptr() const { return *ptr; }
+        double getlength() const { return length; }
+
+
         virtual ~Box(){
             delete ptr;
             ptr = nullptr;
@@ -61,7 +67,7 @@ class Box{
 
 int Box::objectcount = 0;
 
-double getBoxVolume(Box &b){
+double getBoxVolume(const Box &b){
     double v = b.getVolume();
     return v;
 }
@@ -119,7 +125,8 @@ void staticMemberTest(){
 
 class smallBox: virtual public Box{
     // 虚继承，用于解决多继承中，父类成员变量被多次继承的问题（钻石继承）
-    // 虚继承是指，在派生类中，通过virtual关键字声明继承的基类，使得派生类和基类共享同一个基类对象。
+    // 虚继承是指，在派生类中，通过virtual关键字声明继承的基类，使得派生类和基类共享同一个基类对象
+    // 虚继承的基类子对象，在派生类中只有一个，避免了基类成员变量被多次继承，于是有多个副本的问题
     private:
         double smallLength;
         double smallBreath;
@@ -128,6 +135,7 @@ class smallBox: virtual public Box{
     public:
         void setsmallLength(double l){ length = l; }
         // constructor can't be inherited
+        smallBox(): Box(), smallLength(0), smallBreath(0), length(0) {}
         smallBox(double l, double b, double h, int len, double sb, double sblength = 1.44): 
         Box(l, b, h, len), smallLength(1.33), smallBreath(sb), length(sblength)
         {
@@ -144,20 +152,20 @@ double getSmallBoxVolume(smallBox &b){
 }
 
 void classSmallBoxTest(){
-    smallBox box1(3.00, 4.00, 5.00, 2, 6.00, 1.55);
-    box1.setsmallLength(1.00);
-    box1.setbreadth(2.00);
-    box1.setheight(3.00);
+    smallBox smbox1(3.00, 4.00, 5.00, 2, 6.00, 1.55);
+    smbox1.setsmallLength(1.00);
+    smbox1.setbreadth(2.00);
+    smbox1.setheight(3.00);
 
-    double volume = ::getBoxVolume(box1); // global function getBoxVolume()
+    double volume = ::getBoxVolume(smbox1); // global function getBoxVolume()
     cout << "volume = " << volume << endl;
-    cout << "box1.getptr() = " << box1.getptr() << endl; // child class can call the parent class non-private member function
-    cout << "box1.Box::getlength() = " << box1.Box::getlength() << endl; // can use :: to access the parent member, 
-                                                                         // when the parent class has the same name members to the child
-                                                                         // the output is the parent class protected member 'length'
+    cout << "smbox1.getptr() = " << smbox1.getptr() << endl; // child class can call the parent class non-private member function
+    cout << "smbox1.Box::getlength() = " << smbox1.Box::getlength() << endl; // can use :: to access the parent member, 
+                                                                             // when the parent class has the same name members to the child
+                                                                             // the output is the parent class protected member 'length'
 
-    cout << "box1.getlength() = " << box1.getlength() << endl; // the output is also the parent class protected member 'length'
-                                                               // because the child class dont rewrite the getlength() function
+    cout << "smbox1.getlength() = " << smbox1.getlength() << endl; // the output is also the parent class protected member 'length'
+                                                                   // because the child class dont rewrite the getlength() function
 
 }                                                                        
 
@@ -166,9 +174,13 @@ void classSmallBoxTest(){
 /*=======================C++ inherit========================*/
 class tiny: virtual public Box{
     private:
-        double tinyy;
+        double tiny_private;
     public:
-        tiny(double l, double b, double h, int len): Box(l, b, h, len){}
+        tiny(): Box(), tiny_private(0) {}
+
+        tiny(double l, double b, double h, int len, double tp = 0):
+        Box(l, b, h, len), tiny_private(tp){}
+
         ~tiny(){
             cout << R"((delete the tiny object! ))" << endl;
         }
@@ -176,7 +188,7 @@ class tiny: virtual public Box{
 };
 
 
-class tinyBox : public smallBox, public tiny{ // multiple inherit, unrecommend
+class tinyBox : virtual public smallBox, virtual public tiny{ // multiple inherit, unrecommend
     private:
         double tinybreath;
         double tinyheight;
@@ -184,10 +196,9 @@ class tinyBox : public smallBox, public tiny{ // multiple inherit, unrecommend
 
     public:
         tinyBox(double l, double b, double h, int len, 
-                double sb, double tb, double th, double tl):
-        Box(l, b, h, len),
+                double sb, double tb, double th, double tl, double tp = 0):
         smallBox(l, b, h, len, sb), 
-        tiny(l, b, h, len), 
+        tiny(l, b, h, len, tp), 
         tinybreath(tb), tinyheight(th), tinylength(tl)
         {
             cout << "The object is be created!" << endl;
@@ -219,12 +230,13 @@ class OverLD{
         void print(double d){ cout << "d = " << d << endl; } // function overloading
         int getlen() const { return *len; } // 不能在const对象上调用非const成员函数
         int getold() const { return old; } // 不能在const对象上调用非const成员函数
+
         OverLD(){                // non-parameter constructor
             cout << "call the non-parameter constructor" << endl;
             this->len = new int; // since the class has pointer member,
         }                        // need to open up memory space
                                          
-                                         
+        
         explicit OverLD(int a, int len): old(a)      
         {
             this->len = new int;
@@ -232,11 +244,6 @@ class OverLD{
 
             cout << "call the constructor" << endl;
 
-        }
-        virtual ~OverLD(){
-            delete len;
-            len = nullptr;
-            cout << R"((delete the OverLD object! ))" << endl;
         }
 
         OverLD(const OverLD& o){ // copy constructor
@@ -255,9 +262,9 @@ class OverLD{
             cout << "call the copy assignment operator" << endl;
             if(this != &other){
                 delete this->len; // release the original memory
-                this->old = other.old;
                 this->len = new int;
                 *(this->len) = *(other.len);
+                this->old = other.old;
             }
             return *this;
         }
@@ -267,8 +274,15 @@ class OverLD{
             OverLD operator_result;
             operator_result.old = this->old + o.old;
             *(operator_result.len) = *(this->len) + *(o.len);
-            return operator_result;
+            return operator_result; // 因为编译器NRVO优化，返回局部对象时没有调用移动构造函数
         }
+
+        virtual ~OverLD(){
+            delete len;
+            len = nullptr;
+            cout << R"((delete the OverLD object! ))" << endl;
+        }
+
         friend OverLD operator+(const OverLD& o, const OverLD& ol); // declare friend function
         friend OverLD operator+(const OverLD& o, int num); // declare friend function
         int aaa;
@@ -276,7 +290,7 @@ class OverLD{
 };
 
 
-OverLD operator+(const OverLD& o, const OverLD& ol){ // overloading operator as the non-member function
+OverLD operator+(const OverLD& o, const OverLD& ol){ // overloading operator
     cout << "call the friend function which overloads the operator +" << endl;
     OverLD operator_result;
     operator_result.setold(o.getold() + ol.getold());
@@ -299,9 +313,14 @@ void overloadingTest(){
     OverLD o1 = OverLD(1,2); // 显式调用构造函数
     OverLD o2 = OverLD(3,4); // 显式调用构造函数
 
+    cout << "o3" << endl;
     OverLD o3 = o1 + o2; // 调用重载的+运算符的成员函数
     o3 = o3 + o1; // 调用重载的+运算符的成员函数, 主要是注意操作符=的重写
+
+    cout << "o4" << endl;
     OverLD o4 = o1 + 4;
+
+    cin.get();
 
     cout << "o3.getlen() = " << o3.getlen() << endl; // 6
     cout << "o4.getold() = " << o4.getold() << endl; // 5
@@ -328,8 +347,8 @@ class Shape{
         void setheight(double h){ height = h; }
         double getheight() const { return height; }
         double getwidth() const { return width; }
-        int getlen(){ return *ptr; }
-        Shape(): width(), height(), ptr(nullptr){ ptr = new int; } // 如果不写ptr()，指针成员将保持未初始化状态
+        int getlen() const { return *ptr; }
+        Shape(): width(), height(), ptr(nullptr){ ptr = new int; *ptr = 0;} // 如果不写ptr()，指针成员将保持未初始化状态
         Shape(double w, double h, int len): width(w), height(h){
             ptr = new int;
             *ptr = len;
@@ -352,7 +371,7 @@ class Shape{
 };
 
 
-class Rectangle : public Shape{
+class Rectangle : virtual public Shape{
     public:
         Rectangle(): Shape(){}
         Rectangle(double w, double h, int len): Shape(w,h,len){}
@@ -370,7 +389,7 @@ class Rectangle : public Shape{
             cout << R"((delete the Rectangle object! ))" << endl;
         }
 
-        // virtual overloading, and it's not pure
+        // virtual overloading
         double area(){
             return width * height;
         }
@@ -378,10 +397,10 @@ class Rectangle : public Shape{
         Rectangle operator+(const Rectangle& s){
             /*
             在Triangle类的成员函数中，可以访问: 
-                当前对象(this)的protected成员
+                当前对象(this)的protected成员和private成员
                 同类型其他对象的protected成员
             所以可以直接用s.width和s.height来访问另一个Triangle对象的protected成员
-            这是因为protected成员在同一个类
+            这是因为protected成员在“同一个类”
 
             注意: 访问权限是相较于“类”而不是“对象”来说的, 所以protected可以被“同类”的其他对象访问
             */
@@ -395,7 +414,7 @@ class Rectangle : public Shape{
 };
 
 
-class Triangle : public Shape{
+class Triangle : virtual public Shape{
     public:
         Triangle(): Shape(){}
         Triangle(double w, double h, int len): Shape(w,h,len){}
@@ -445,11 +464,11 @@ void polymorphismsTest(){
     Rectangle ra(5,5,1);
     Triangle ta(6,6,2);
 
-    cout << "ra.getheight() = " << ra.getheight() << endl;
-    cout << "ta.getheight() = " << ta.getheight() << endl;
+    cout << "ra.getheight() = " << ra.getheight() << endl; // 调用基类Shape的成员函数
+    cout << "ta.getheight() = " << ta.getheight() << endl; // 调用基类Shape的成员函数
 
-    cout << "ra.area() = " << ra.area() << endl;
-    cout << "ta.area() = " << ta.area() << endl;
+    cout << "ra.area() = " << ra.area() << endl; // 调用 Rectangle area()
+    cout << "ta.area() = " << ta.area() << endl; // 调用 Triangle area()
 
     shape = &ra;  // virtual function is be used in the situation that 
                   // using the parent pointer point to derived class

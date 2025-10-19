@@ -15,7 +15,7 @@ add_executable(Object)
 
 # 分别设置源文件和头文件
 target_sources(Object
-    PRIVATE
+    PRIVATE # 指定目标属性的访问级别的关键字
         ../object.cpp
         ../src/test_cmake.cpp    # 显式列出文件更清晰
         # 而不是使用aux_source_directory
