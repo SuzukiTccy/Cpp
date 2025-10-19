@@ -25,3 +25,13 @@ target_include_directories(Advance
 )
 
 target_link_libraries(Advance PRIVATE AdvanceFunc)
+
+
+# ========== 修改：添加run目标 ==========
+# 创建run目标，只有在显式执行make run时才会运行程序
+add_custom_target(run
+    DEPENDS Advance
+    COMMAND echo "=== 运行程序 ==="
+    COMMAND $<TARGET_FILE:Advance> # 生成器表达式，获取Advance可执行文件的路径
+    COMMAND echo "=== 程序执行完成 ==="
+)
