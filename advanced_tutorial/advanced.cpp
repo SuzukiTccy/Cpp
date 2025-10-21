@@ -9,14 +9,18 @@ using namespace std;
 int main(){
 /*=======================file and stream========================*/
     cout << "<===========file and stream===========>" << endl;
-    openFileTest();
-    cout << endl;
+    #if 0
+        openFileTest();
+        cout << endl;
+    #endif
 
 
 /*=======================exception handing========================*/
     cout << "<===========exception handing===========>" << endl;
+    #if 0
     exceptionTest();
     cout << endl;
+    #endif
 
 
 /*=======================dynamic memory space========================*/
@@ -45,7 +49,7 @@ int main(){
 
 /*=======================signal Handle========================*/
     cout << "<===========signal Handle===========>" << endl;
-    signalHandleTest();
+    // signalHandleTest();
     cout << endl;
 
 
