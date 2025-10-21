@@ -49,7 +49,9 @@ int main(){
 
 /*=======================signal Handle========================*/
     cout << "<===========signal Handle===========>" << endl;
-    // signalHandleTest();
+    #if 0
+    signalHandleTest();
+    #endif
     cout << endl;
 
 
@@ -57,19 +59,27 @@ int main(){
 /*=======================multi-thread========================*/
     cout << "<===========multi-thread===========>" << endl;
     cout << "<=====pthreadTest1()======>" << endl;
-    // pthreadTest1();
+    #if 0
+    pthreadTest1();
+    #endif
     cout << endl;
 
     cout << "<=====pthreadTest2()======>" << endl;
-    // pthreadTest2();
+    #if 0
+    pthreadTest2();
+    #endif
     cout << endl;
 
     cout << "<=====threadTest1()======>" << endl;
-    // threadTest1();
+    #if 0
+    threadTest1();
+    #endif
     cout << endl;
 
     cout << "<=====threadTest2()======>" << endl;
+    #if 0
     threadTest2();
+    #endif
     cout << endl;
 
 

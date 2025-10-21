@@ -50,7 +50,7 @@ inline void Stack<T>::Push(T const& elem){
 
 template <class T>
 inline void Stack<T>::Pop(){
-    if (empty()){
+    if (this->empty()){
         throw out_of_range("Stack<>::Pop(): empty stack!");
     }
     elems.pop_back();

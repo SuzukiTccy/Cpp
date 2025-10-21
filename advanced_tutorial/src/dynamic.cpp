@@ -8,6 +8,8 @@ void dynamicTest(){
     cout << "------------2-dimension dynamic array :-------------" << endl;
     int **array = nullptr; // [3][4]
     array = new int *[3]; // (int*, int*, int*)
+                          // new int *[3]会自动转换为指向第一个元素的指针, 也就是int **类型
+                          // 所以array的类型是int **
     for(int i = 0; i<3; ++i){
         array[i] = new int [4]; // array[i] is int*, allocate 4 int for each row
         for(int j=0; j<4; ++j){
