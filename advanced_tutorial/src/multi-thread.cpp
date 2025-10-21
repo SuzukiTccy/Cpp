@@ -1,6 +1,6 @@
 #include <iostream>
 #include <thread> // C++11 standard thread library
-#include <pthread.h>
+#include <pthread.h> // POSIX thread library
 #include <string>
 #include <unistd.h> // 作用: sleep function
 using namespace std;
@@ -40,7 +40,8 @@ void pthreadTest1(){
             pthread_join():
             1. 如果不使用pthread_join，主线程可能会在子线程还没完成时就退出
             这可能导致子线程的任务没有完全执行完就被终止
-            2. 线程之间同步
+            2. 不使用的话还可能导致资源泄漏
+            3. 线程之间同步
         */
         pthread_join(threads[i], NULL); // 等待线程结束
     }
