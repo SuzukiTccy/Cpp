@@ -159,7 +159,7 @@ void threadTest2(){
         threads.push_back(thread(sell_ticket, i));
     }
     for(auto &t : threads){
-        t.join();
+        t.join(); // main thread 等待 t 结束
     }
 
 }
