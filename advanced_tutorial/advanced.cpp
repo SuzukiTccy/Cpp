@@ -91,6 +91,7 @@ int main(){
     cout << endl;
 
 
+
 /*=======================functional========================*/
     cout << "<===========functional===========>" << endl;
     cout << "<===========simple example===========>" << endl;
@@ -101,6 +102,17 @@ int main(){
     complicated_exp_function();
     cout << endl;
 
+
+
+/*=======================bind========================*/
+    cout << "<===========bind===========>" << endl;
+    cout << "<===========simple example===========>" << endl;
+    simple_exp_bind();
+    cout << endl;
+
+    cout << "<===========bind classFunction example===========>" << endl;
+    classfunc_exp_bind();
+    cout << endl;
 
     return 0;
 }

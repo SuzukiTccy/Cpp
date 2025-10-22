@@ -16,5 +16,7 @@ void threadTest2();
 void vec();
 void simple_exp_function();
 void complicated_exp_function();
+void simple_exp_bind();
+void classfunc_exp_bind();
 
 #endif
