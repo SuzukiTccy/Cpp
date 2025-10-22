@@ -20,5 +20,6 @@ void simple_exp_bind();
 void classfunc_exp_bind();
 void unique_ptr_example();
 void shared_ptr_example();
+void weak_ptr_example();
 
 #endif

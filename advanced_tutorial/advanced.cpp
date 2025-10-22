@@ -124,6 +124,10 @@ int main(){
     shared_ptr_example();
     cout << endl;
 
+    cout << "<=========== weak_ptr ===========>" << endl;
+    weak_ptr_example();
+    cout << endl;
+
 
 
     return 0;
