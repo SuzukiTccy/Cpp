@@ -91,5 +91,16 @@ int main(){
     cout << endl;
 
 
+/*=======================functional========================*/
+    cout << "<===========functional===========>" << endl;
+    cout << "<===========simple example===========>" << endl;
+    simple_exp_function();
+    cout << endl;
+
+    cout << "<===========complicated example===========>" << endl;
+    complicated_exp_function();
+    cout << endl;
+
+
     return 0;
 }

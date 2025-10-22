@@ -14,5 +14,7 @@ void pthreadTest2();
 void threadTest1();
 void threadTest2();
 void vec();
+void simple_exp_function();
+void complicated_exp_function();
 
 #endif
