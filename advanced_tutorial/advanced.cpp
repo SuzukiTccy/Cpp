@@ -114,5 +114,13 @@ int main(){
     classfunc_exp_bind();
     cout << endl;
 
+
+/*======================= smart pointer========================*/
+    cout << "<=========== unique_ptr ===========>" << endl;
+    unique_ptr_example();
+    cout << endl;
+
+
+
     return 0;
 }

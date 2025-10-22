@@ -89,7 +89,7 @@ public:
     
     void click() {
         cout << "按钮 '" << label << "' 被点击了！" << endl;
-        if (onClick) {
+        if (onClick) { // 检查是否包含可调用目标
             onClick();
         }
     }
