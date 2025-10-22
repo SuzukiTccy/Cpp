@@ -9,9 +9,14 @@ inline T const& Max(T const& a, T const& b){
     return a > b ? a:b;
 }
 
+template <typename T1, typename T2> // 可以有多个参数，但是不能有默认参数
+inline T2 const & Min(T1 const& a, T2 const& b){
+    return a < b ? a:b;
+}
+
 
 // 手写一个栈的类模板
-template <class T>
+template <class T, class T2 = char> // 可以有默认参数
 class Stack{
     private:
         vector<T> elems;
@@ -43,21 +48,22 @@ class Stack{
         }
 };
 
-template <class T>
-inline void Stack<T>::Push(T const& elem){
+// template <class T, class T2 = char> // 错误的，不能在类模版外的定义中指定默认参数
+template <class T, class T2>
+inline void Stack<T, T2>::Push(T const& elem){
     elems.push_back(elem);
 }
 
-template <class T>
-inline void Stack<T>::Pop(){
+template <class T, class T2>
+inline void Stack<T, T2>::Pop(){
     if (this->empty()){
         throw out_of_range("Stack<>::Pop(): empty stack!");
     }
     elems.pop_back();
 }
 
-template <class T>
-inline T Stack<T>::Top() const{
+template <class T, class T2>
+inline T Stack<T, T2>::Top() const{
     if (empty()){
         throw out_of_range("Stack<>::Pop(): empty stack!");
     }
@@ -66,15 +72,25 @@ inline T Stack<T>::Top() const{
 
 
 
-template <typename T>
-inline T LengthMethod(Stack<T> const &mystack){
-    typedef typename Stack<T>::stackLengthType stackLengthType; // 'typename' tell the compiler that 
+template <typename T, typename T2>
+inline T LengthMethod(Stack<T, T2> const &mystack){
+    typedef typename Stack<T, T2>::stackLengthType stackLengthType; // 'typename' tell the compiler that 
                                                                 // Stack<T>::stackLengthType is a Type
                                                                 // not the member function or variable.
     stackLengthType length = mystack.GetLength();
     return length;
 }
 
+
+class CSON1 : public Stack<int, char>{
+    // 非类模版的派生类，需要指定基类模版的参数
+};
+
+
+template <class T, class T2, class T3>
+class CSON2 : public Stack<T, T2>{
+    // 类模版的派生类，可以不指定基类模版的参数
+};
 
 
 
