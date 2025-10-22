@@ -120,6 +120,10 @@ int main(){
     unique_ptr_example();
     cout << endl;
 
+    cout << "<=========== shared_ptr ===========>" << endl;
+    shared_ptr_example();
+    cout << endl;
+
 
 
     return 0;
