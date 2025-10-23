@@ -89,14 +89,20 @@ int main(){
     cout << endl;
 
     cout << "<=====threadTest4()======>" << endl;
-    #if 1
+    #if 0
     threadTest4();
     #endif
     cout << endl;
 
     cout << "<=====conditional variable======>" << endl;
-    #if 1
+    #if 0
     conditional_variable_test();
+    #endif
+    cout << endl;
+
+    cout << "<===== ThreadsPool ======>" << endl;
+    #if 1
+    threadspool_example();
     #endif
     cout << endl;
 

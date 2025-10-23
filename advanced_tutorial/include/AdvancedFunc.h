@@ -16,6 +16,7 @@ void threadTest2();
 void threadTest3();
 void threadTest4();
 void conditional_variable_test();
+void threadspool_example();
 void vec();
 void simple_exp_function();
 void complicated_exp_function();
@@ -24,5 +25,6 @@ void classfunc_exp_bind();
 void unique_ptr_example();
 void shared_ptr_example();
 void weak_ptr_example();
+
 
 #endif
