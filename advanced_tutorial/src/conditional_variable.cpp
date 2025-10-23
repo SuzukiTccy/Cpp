@@ -73,9 +73,9 @@ class ThreadSafeBuffer{
 
 // 模拟生产者的不同生产速度
 void fast_producer(ThreadSafeBuffer& buffer, int id){
-    random_device rd;
-    mt19937 gen(rd());
-    uniform_int_distribution<> dis(50, 150);
+    random_device rd; // C++11引入的随机数引擎，用于产生真随机数（如果硬件支持的话）
+    mt19937 gen(rd()); // Mersenne Twister 19937算法，用于生成伪随机数
+    uniform_int_distribution<> dis(50, 150); // 均匀分布，用于生成[50,150]的随机数
 
     int item = 0;
     for(int i = 0; i < 10; ++i){
@@ -155,7 +155,8 @@ void conditional_variable_test(){
     }
 
     // 让系统运行一段时间
-    this_thread::sleep_for(chrono::seconds(20));
+    this_thread::sleep_for(chrono::seconds(5));
+    // 5s内，还未生产完成，则停止生产和消费
 
 
     // 停止生产和消费

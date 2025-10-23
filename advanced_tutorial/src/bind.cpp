@@ -77,7 +77,7 @@ void classfunc_exp_bind() {
     Person bob("Bob", 30);
     
     // 1. 绑定成员函数到特定对象
-    auto aliceIntro = bind(&Person::introduce, &alice, _1);
+    auto aliceIntro = bind(&Person::introduce, &alice, _1); // 其实这里的&alice, 表示的是成员函数中第一个隐藏的参数, 即this指针
     aliceIntro("你好");  // 相当于 alice.introduce("你好")
     
     auto bobIntro = bind(&Person::introduce, &bob, "Hello");
@@ -85,7 +85,7 @@ void classfunc_exp_bind() {
     
     // 2. 绑定setter函数
     auto setAliceName = bind(&Person::setName, &alice, _1);
-    setAliceName("Alice Smith");
+    setAliceName("Alice Smith"); // 相当于 alice.setName("Alice Smith")
     
     // 3. 绑定getter函数
     auto getAliceName = bind(&Person::getName, &alice);
