@@ -31,6 +31,7 @@ void unique_ptr_example(){
     int *intp = uqp4.release(); // uqp4释放资源，返回原始指针
     cout << "*intp = " << *intp << endl; // output: 10
     delete intp; // 释放原始指针
+    uqp1.reset(); // 也可以用reset()释放unique_ptr
 
     // 4. unique_ptr重置资源
     cout << "<======== unique_ptr重置资源 ========>" << endl;
@@ -90,7 +91,7 @@ void shared_ptr_example(){
     cout << "<======== shared_ptr自定义删除器 ========>" << endl;
     void shared_deleter(fstream *file); // 自定义删除器
 
-    shared_ptr<fstream> ptr2(new fstream("test.txt", ios::out), shared_deleter);
+    shared_ptr<fstream> ptr2(new fstream("test.txt", ios::out | ios::trunc), shared_deleter);
     if (ptr2){
         ptr2->write("hello world", 11);
     }
@@ -124,7 +125,7 @@ void weak_ptr_example(){
     // weak_ptr<int> wp2 = make_shared<int>(20); // 错误的初始化方式
 
     cout << "*sp1 = " << *sp1 << endl; // output: 10
-    cout << "*wp1 = " << *wp1.lock() << endl; // output: 10
+    cout << "*wp1 = " << *wp1.lock() << endl; // output: 10, 通过lock()转换为shared_ptr
     cout << "sp1.use_count() = " << sp1.use_count() << endl; // output: 1
     cout << "wp1.use_count() = " << wp1.use_count() << endl; // output: 1
 
@@ -156,7 +157,7 @@ void weak_ptr_example(){
 
     sp1.reset(new int(30)); // 重新分配资源
     cout << "*sp1 = " << *sp1 << endl; // output: 30
-    if  (wp1.expired()){
+    if (wp1.expired()){
         cout << "The object that wp1 points to has been deleted" << endl;
     } // 这里不会打印，因为上面sp1重新分配了资源
 
