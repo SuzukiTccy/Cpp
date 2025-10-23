@@ -15,6 +15,7 @@ void threadTest1();
 void threadTest2();
 void threadTest3();
 void threadTest4();
+void conditional_variable_test();
 void vec();
 void simple_exp_function();
 void complicated_exp_function();

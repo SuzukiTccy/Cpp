@@ -94,6 +94,12 @@ int main(){
     #endif
     cout << endl;
 
+    cout << "<=====conditional variable======>" << endl;
+    #if 1
+    conditional_variable_test();
+    #endif
+    cout << endl;
+
 
 /*=======================STL========================*/
     cout << "<===========STL===========>" << endl;

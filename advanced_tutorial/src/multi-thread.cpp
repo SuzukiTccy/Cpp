@@ -128,12 +128,23 @@ void threadTest1(){
 }
 
 
+/*
+1. thread.join():
+- 功能：阻塞当前线程（通常是主线程），直到被调用的线程执行完毕2。
+- 使用场景：当你需要等待子线程完成其任务后再继续执行主线程时使用。
+- 注意：每个线程对象在调用join()后就不能再次调用join()或detach()，因为线程已经完成执行。
+
+2. thread.detach():
+- 功能：将线程与调用它的线程分离，使子线程独立运行，不再受父线程控制2。
+- 使用场景：当你不关心子线程何时完成，或者希望子线程在后台独立运行时使用。
+- 注意：一旦线程被分离，就不能再调用join()，因为线程已经独立运行，无法再被等待。
+*/
+
+
 #include <chrono> // C++11 standard time library
 #include <mutex>  // C++11 standard mutex library
 #include <vector>
-#include <condition_variable> // C++11 standard condition_variable library
-std::mutex mtx;
-std::condition_variable_any cond;
+std::mutex mtx; // 全局互斥锁
 
 static int ticket_total = 100;
 void sell_ticket(int thread_id){
@@ -233,17 +244,9 @@ void threadTest4(){
 
 
 
-/*
-1. thread.join():
-- 功能：阻塞当前线程（通常是主线程），直到被调用的线程执行完毕2。
-- 使用场景：当你需要等待子线程完成其任务后再继续执行主线程时使用。
-- 注意：每个线程对象在调用join()后就不能再次调用join()或detach()，因为线程已经完成执行。
 
-2. thread.detach():
-- 功能：将线程与调用它的线程分离，使子线程独立运行，不再受父线程控制2。
-- 使用场景：当你不关心子线程何时完成，或者希望子线程在后台独立运行时使用。
-- 注意：一旦线程被分离，就不能再调用join()，因为线程已经独立运行，无法再被等待。
-*/
+
+
 
 
 
