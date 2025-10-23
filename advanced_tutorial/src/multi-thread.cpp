@@ -19,7 +19,7 @@ void *sayHello(void *thread_id){ // return type and variable type must be void*
 
 
 void pthreadTest1(){
-
+    cout << "<== pthreadTest1(): test the POSIX thread library ==>" << endl;
     pthread_t threads[NUM_THREADS]; // 创立线程池
     int tids[NUM_THREADS];
     int ret;
@@ -68,6 +68,7 @@ void *printdata(void *threadarg){
 }
 
 void pthreadTest2(){
+    cout << "<== pthreadTest2(): test the POSIX thread library ==>" << endl;
     pthread_t treads[NUM_THREADS];
     thread_data tdata[NUM_THREADS];
     int i;
@@ -104,6 +105,7 @@ class thread_obj{
 
 
 void threadTest1(){
+    cout << "<== threadTest1(): test the C++11 standard thread library ==>" << endl;
     thread th1(foo, 5); // th1 用 函数指针 作为可调用参数, th1对象被创建时, 线程就开始运行
     thread th2{thread_obj(), 5}; // th2 用 函数对象 作为可调用参数, th2对象被创建时, 线程就开始运行
 
@@ -152,6 +154,8 @@ void sell_ticket(int thread_id){
 
 
 void threadTest2(){
+    cout << "<== threadTest2(): test the C++11 standard thread library ==>" \
+    << " and mutex library ==>" << endl;
     int ticket_seller = thread::hardware_concurrency();
     int i;
     vector<thread> threads;
@@ -163,6 +167,69 @@ void threadTest2(){
     }
 
 }
+
+void sell_ticket2(int thread_id){
+    while(true){
+        {
+            lock_guard<mutex> guard_lock(mtx);
+            if(ticket_total <= 0) return;
+            --ticket_total;
+            cout << "ticket_seller " << thread_id << " sell 1 ticket, "
+            << "there are " << ticket_total << " tickets left " << endl;
+        } // 离开作用域, lock_guard 自动释放锁
+
+        this_thread::sleep_for(chrono::milliseconds(50));
+    }
+    
+};
+
+
+void threadTest3(){
+    cout << "<== threadTest3(): test the C++11 standard thread library" \
+    << " and lock_guard library ==>" << endl;
+    vector<thread> threads;
+    int ticket_seller = thread::hardware_concurrency();
+    for(int i = 0; i < ticket_seller; ++i){
+        threads.push_back(thread(sell_ticket2, i));
+    }
+
+    for(auto &t : threads){
+        t.join(); // main thread 等待 t 结束
+    }
+
+}
+
+
+void sell_ticket3(int thread_id){
+    while(true){
+        {
+            unique_lock<mutex> unique_lock(mtx);
+            if(ticket_total <= 0) return;
+            --ticket_total;
+            cout << "ticket_seller " << thread_id << " sell 1 ticket, "
+            << "there are " << ticket_total << " tickets left " << endl;
+        } // 离开作用域, unique_lock 自动释放锁
+
+        this_thread::sleep_for(chrono::milliseconds(50));
+    }
+}
+
+
+void threadTest4(){
+    cout << "<== threadTest4(): test the C++11 standard thread library" \
+    << " and unique_lock ==>" << endl;
+    vector<thread> threads;
+    int ticket_seller = thread::hardware_concurrency();
+    for(int i = 0; i < ticket_seller; ++i){
+        threads.push_back(thread(sell_ticket3, i));
+    }
+
+    for(auto &t : threads){
+        t.join(); // main thread 等待 t 结束
+    }
+}
+
+
 
 
 

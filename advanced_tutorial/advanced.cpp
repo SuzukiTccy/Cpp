@@ -82,6 +82,17 @@ int main(){
     #endif
     cout << endl;
 
+    cout << "<=====threadTest3()======>" << endl;
+    #if 0
+    threadTest3();
+    #endif
+    cout << endl;
+
+    cout << "<=====threadTest4()======>" << endl;
+    #if 1
+    threadTest4();
+    #endif
+    cout << endl;
 
 
 /*=======================STL========================*/
