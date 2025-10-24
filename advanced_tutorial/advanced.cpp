@@ -95,7 +95,7 @@ int main(){
     cout << endl;
 
     cout << "<=====conditional variable======>" << endl;
-    #if 0
+    #if 1
     conditional_variable_test();
     #endif
     cout << endl;

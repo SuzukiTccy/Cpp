@@ -142,16 +142,25 @@ void conditional_variable_test(){
 
     int num_system_threads = thread::hardware_concurrency();
     int num_threads_per_type = num_system_threads / 4;
+
     for(int i = 0; i < num_system_threads; ++i){
         // 创建不同速度的生产者
-        producers.emplace_back(thread(fast_producer, ref(buffer), i));
-        producers.emplace_back(thread(slow_producer, ref(buffer), i+num_threads_per_type));
+        producers.emplace_back(&fast_producer, ref(buffer), i);
+        producers.emplace_back(&slow_producer, ref(buffer), i+num_threads_per_type);
+
+        // 以下这两行没有体现出emplace_back()的优势，因为函数参数是值传递，所以emplace_back()和push_back()效果一样
+        // producers.emplace_back(thread(fast_producer, ref(buffer), i));
+        // producers.emplace_back(thread(slow_producer, ref(buffer), i+num_threads_per_type));
+        
     }
 
-    // 创建不同速度的消费者
     for(int i = 2 * num_threads_per_type; i < 3 * num_threads_per_type; ++i){
-        consumers.emplace_back(thread(fast_consumer, ref(buffer), i));
-        consumers.emplace_back(thread(slow_consumer, ref(buffer), i+num_threads_per_type));
+        // 创建不同速度的消费者
+        consumers.emplace_back(&fast_consumer, ref(buffer), i);
+        consumers.emplace_back(&slow_consumer, ref(buffer), i+num_threads_per_type);
+
+        // consumers.emplace_back(thread(fast_consumer, ref(buffer), i));
+        // consumers.emplace_back(thread(slow_consumer, ref(buffer), i+num_threads_per_type));
     }
 
     // 让系统运行一段时间
