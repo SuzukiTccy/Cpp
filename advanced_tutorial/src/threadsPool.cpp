@@ -40,9 +40,10 @@ public:
         }
     }
     
-    void add_task(function<void()> task){
+    template<typename F, typename... Args>
+    void add_task(F&& f, Args&&... args){
         // 在移动前检查任务是否有效
-        if (!task) {
+        if (!f) {
             // task 是空的，可能是构造失败或已经被移动
             cerr << "警告: 尝试添加空任务到队列" << endl;
             return;  // 直接返回，不添加到队列
@@ -50,9 +51,8 @@ public:
 
         {
             unique_lock<mutex> lock(queue_mtx);
-            tasks_queue.emplace(std::move(task)); // 和tasks_queue.emplace(task)的区别
-        }                                         // 将 task 的所有权转移到队列中，而不是拷贝一份
-                                                  // 调用后，原对象 task 不再可用
+            tasks_queue.emplace(bind(std::forward<F>(f), std::forward<Args>(args)...));
+        }
         tasks_available.notify_one();
     }
 
@@ -81,10 +81,13 @@ void ThreadPool::worker(){
     }
 }
 
-void work_function(){
+void work_function(int task_id){
+    cout << endl;
+    cout << "<====== Task: " << task_id << " is running =====>" << endl;
     for(int i = 0;i < 20; ++i){
         mtx.lock();
-        cout << "thread id: " << this_thread::get_id() << " i: " << i << endl;
+        cout << "thread id: " << this_thread::get_id() << " task_id: " << task_id \
+        << " i: " << i << endl;
         mtx.unlock();
         this_thread::sleep_for(chrono::milliseconds(50));
     }
@@ -97,10 +100,10 @@ void work_function(){
 
 void threadspool_example(){
     ThreadPool pool(8);
-    for(int i = 0;i < 20; ++i){
-        pool.add_task(work_function);
+    for(int task_id = 0; task_id < 20; ++task_id){
+        pool.add_task(work_function, task_id);
         mtx.lock();
-        cout << "Task_id: " << i << " is ready!" << endl;
+        cout << "Task_id: " << task_id << " is ready!" << endl;
         mtx.unlock();
     }
     this_thread::sleep_for(chrono::seconds(6));
